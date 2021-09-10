@@ -11,26 +11,25 @@ export enum ProductsActionTypes {
 
 export type ProductsActionNew = {
     type:ProductsActionTypes.NEW_PRODUCT,
-    payload:Products
+    payload?:Products
 }
 
 export type ProductsActionGet = {
-    type:ProductsActionTypes.GET_PRODUCT
+    type:ProductsActionTypes.GET_PRODUCT,
+    payload?:Inventory
 }
 
 export type ProductsActionAddInvent = {
     type:ProductsActionTypes.ADD_INVENT,
-    payload:Inventory
+    payload?:Inventory
 }
 
 export type ProductsActionSetInvent = {
     type:ProductsActionTypes.SET_INVENT,
-    payload:Inventory
+    payload?:Inventory
 }
 
-export type ProductsAction = {
-
-}
+export type ProductsAction = ProductsActionNew | ProductsActionGet | ProductsActionAddInvent | ProductsActionSetInvent;
 
 export const newProduct:ActionCreator<ProductsActionNew> = (newProduct:Products) => {
     return {
@@ -39,9 +38,10 @@ export const newProduct:ActionCreator<ProductsActionNew> = (newProduct:Products)
     }
 }
 
-export const getProduct:ActionCreator<ProductsActionGet> = () => {
+export const getProduct:ActionCreator<ProductsActionGet> = (inventDec:Inventory) => {
     return {
-        type:ProductsActionTypes.GET_PRODUCT
+        type:ProductsActionTypes.GET_PRODUCT,
+        payload:inventDec
     }
 }
 

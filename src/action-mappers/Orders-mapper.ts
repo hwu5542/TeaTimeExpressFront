@@ -22,6 +22,8 @@ export type OrdersActionDelete = {
     payload?:number[]
 }
 
+export type OrdersAction = OrdersActionNew | OrdersActionCancel | OrdersActionDelete;
+
 export const newOrder:ActionCreator<OrdersActionNew> = (order:Orders) => {
     return {
         type:OrdersActionTypes.NEW_ORDER,
