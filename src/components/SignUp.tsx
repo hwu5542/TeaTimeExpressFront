@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
 const SignUp:React.FC<unknown> = (props) => {
+
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+    const signUpValidate = async (event: { preventDefault: () => void; }) => { 
+      event.preventDefault();
+    }
+
     return (
         <div className="container col-xl-10 col-xxl-8 px-4 py-5">
           <div className="row align-items-center g-lg-5 py-5">
@@ -10,13 +18,13 @@ const SignUp:React.FC<unknown> = (props) => {
               <p className="col-lg-10 fs-4" id="registerPrompt">New customer can sign up here.</p>
             </div>
             <div className="col-md-10 mx-auto col-lg-5" id="signUpForm">
-              <form className="p-4 p-md-5 border rounded-3 bg-light">
+              <form className="p-4 p-md-5 border rounded-3 bg-light" onSubmit={signUpValidate}>
                 <div className="form-floating mb-3">
-                  <input type="text" className="form-control" id="floatingUsername" placeholder="Username"/>
+                  <input type="text" className="form-control" id="floatingUsername" placeholder="Username" onChange={e => setUsername(e.target.value)}/>
                   <label htmlFor="floatingUsername">Username</label>
                 </div>
                 <div className="form-floating mb-3">
-                  <input type="password" className="form-control" id="floatingPassword" autoComplete="on" placeholder="Password"/>
+                  <input type="password" className="form-control" id="floatingPassword" autoComplete="on" placeholder="Password" onChange = {e => setPassword(e.target.value)}/>
                   <label htmlFor="floatingPassword">Password</label>
                 </div>
                 <div className="checkbox mb-3">
