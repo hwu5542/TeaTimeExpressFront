@@ -7,6 +7,7 @@ const SignUp:React.FC<unknown> = (props) => {
 
     const signUpValidate = async (event: { preventDefault: () => void; }) => { 
       event.preventDefault();
+      
     }
 
     return (
