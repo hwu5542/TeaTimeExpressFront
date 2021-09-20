@@ -1,10 +1,14 @@
 import { ThunkAction, Action, configureStore } from '@reduxjs/toolkit';
 import { composeWithDevTools } from "redux-devtools-extension";
 import usersReducer from '../slices/UserSlice'
+import productsReducer from '../slices/ProductsSlice'
+import ordersReducer from '../slices/OrdersSlice';
 
 const store = configureStore({
     reducer:{
-        users: usersReducer
+        users: usersReducer,
+        products: productsReducer,
+        orders: ordersReducer,
     }
 })
 

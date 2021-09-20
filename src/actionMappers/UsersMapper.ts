@@ -2,7 +2,6 @@ import { ActionCreator } from "redux";
 import { Users } from "../models/Users";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ApiGetUsers, ApiValidateUsers } from "../remote/SpringApi";
-import usersReducer from "../reducers/UsersReducer";
 
 export enum UsersActionTypes {
     USERS_SIGNUP = 'users/signup',
