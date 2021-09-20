@@ -24,21 +24,21 @@ export type OrdersActionDelete = {
 
 export type OrdersAction = OrdersActionNew | OrdersActionCancel | OrdersActionDelete;
 
-export const newOrder:ActionCreator<OrdersActionNew> = (order:Orders) => {
+export const newOrder = (order:Orders) => {
     return {
         type:OrdersActionTypes.NEW_ORDER,
         payload:order    
     }
 }
 
-export const cancelOrder:ActionCreator<OrdersActionCancel> = (order_number:number) => {
+export const cancelOrder = (order_number:number) => {
     return {
         type:OrdersActionTypes.CANCEL_ORDER,
         payload:order_number
     }
 }
 
-export const deleteOrder:ActionCreator<OrdersActionDelete> = (order_number:number[]) => {
+export const deleteOrder = (order_number:number[]) => {
     return {
         type:OrdersActionTypes.DELETE_ORDER,
         payload:order_number

@@ -31,28 +31,28 @@ export type ProductsActionSetInvent = {
 
 export type ProductsAction = ProductsActionNew | ProductsActionGet | ProductsActionAddInvent | ProductsActionSetInvent;
 
-export const newProduct:ActionCreator<ProductsActionNew> = (newProduct:Products) => {
+export const newProduct = (newProduct:Products) => {
     return {
         type:ProductsActionTypes.NEW_PRODUCT,
         payload:newProduct
     }
 }
 
-export const getProduct:ActionCreator<ProductsActionGet> = (inventDec:Inventory) => {
+export const getProduct = (inventDec:Inventory) => {
     return {
         type:ProductsActionTypes.GET_PRODUCT,
         payload:inventDec
     }
 }
 
-export const addInventory:ActionCreator<ProductsActionAddInvent> = (inventInc:Inventory) => {
+export const addInventory = (inventInc:Inventory) => {
     return {
         type:ProductsActionTypes.ADD_INVENT,
         payload:inventInc
     }
 }
 
-export const setInventory:ActionCreator<ProductsActionSetInvent> = (inventSet:Inventory) => {
+export const setInventory = (inventSet:Inventory) => {
     return {
         type:ProductsActionTypes.SET_INVENT,
         payload:inventSet

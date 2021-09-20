@@ -22,22 +22,22 @@ export type UsersActionLoginAdmin = {
 
 export type UsersActionSignUp = {
     type:UsersActionTypes.USERS_SIGNUP,
-    payload?:{username:String, password:String}
+    payload?:Users
 }
 
-export type UsersActionLogin = UsersActionLoginAdmin | UsersActionLoginCustomer;
+export type UsersAction = UsersActionLoginAdmin | UsersActionLoginCustomer | UsersActionSignUp;
 
-export const loginCustomer:ActionCreator<UsersActionLoginCustomer> = (userCredential:Users) => {
+export const loginCustomer = (state:any) => {
     return {
         type:UsersActionTypes.USERS_LOGIN_CUTOMER,
-        payload:userCredential
+        payload:state.profile
     }
 }
 
-export const loginAdmin:ActionCreator<UsersActionLoginAdmin> = (userCredential:Users) => {
+export const loginAdmin = (state:any) => {
     return {
         type:UsersActionTypes.USERS_LOGIN_ADMIN,
-        payload:userCredential
+        payload:state.profile
     }
 }
 
@@ -45,7 +45,7 @@ export const loginCustomerAsync = createAsyncThunk(
     UsersActionTypes.USERS_LOGIN_CUTOMER,
     async(username: String) => {
         const usersCredential = await ApiGetUsers(username);
-        if (usersCredential) return loginCustomer(usersCredential);
+        if (typeof usersCredential === 'object') return loginCustomer({profile:usersCredential});
     }
 );
 
@@ -53,7 +53,7 @@ export const loginadminAsync = createAsyncThunk(
     UsersActionTypes.USERS_LOGIN_ADMIN,
     async(username: String) => {
         const usersCredential = await ApiGetUsers(username);
-        if (usersCredential) return loginAdmin(usersCredential);
+        if (typeof usersCredential === 'object') return loginAdmin({profile:usersCredential});
     }
 );
 
@@ -61,6 +61,6 @@ export const signUpAsync = createAsyncThunk(
     UsersActionTypes.USERS_SIGNUP,
     async (validatingCredential:{username: String, password:String}) => {
         const usersCredential = await ApiValidateUsers(validatingCredential.username, validatingCredential.password);
-        if (usersCredential) return loginCustomer(usersCredential);
+        if (typeof usersCredential === 'object') return loginCustomer({profile:usersCredential});
     }
 )
