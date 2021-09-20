@@ -45,7 +45,7 @@ export const loginCustomerAsync = createAsyncThunk(
     UsersActionTypes.USERS_LOGIN_CUTOMER,
     async(username: String) => {
         const usersCredential = await ApiGetUsers(username);
-        if (typeof usersCredential === 'object') return loginCustomer({profile:usersCredential});
+        if (typeof usersCredential === 'object') return usersCredential;
     }
 );
 
@@ -53,7 +53,7 @@ export const loginadminAsync = createAsyncThunk(
     UsersActionTypes.USERS_LOGIN_ADMIN,
     async(username: String) => {
         const usersCredential = await ApiGetUsers(username);
-        if (typeof usersCredential === 'object') return loginAdmin({profile:usersCredential});
+        if (typeof usersCredential === 'object') return usersCredential;
     }
 );
 
@@ -61,6 +61,6 @@ export const signUpAsync = createAsyncThunk(
     UsersActionTypes.USERS_SIGNUP,
     async (validatingCredential:{username: String, password:String}) => {
         const usersCredential = await ApiValidateUsers(validatingCredential.username, validatingCredential.password);
-        if (typeof usersCredential === 'object') return loginCustomer({profile:usersCredential});
+        if (typeof usersCredential === 'object') return usersCredential;
     }
 )
