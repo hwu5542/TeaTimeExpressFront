@@ -1,16 +1,12 @@
-import { ThunkAction, Action, configureStore } from '@reduxjs/toolkit';
+import { ThunkAction, Action, configureStore, createStore, applyMiddleware } from '@reduxjs/toolkit';
 import { composeWithDevTools } from "redux-devtools-extension";
-import usersReducer from '../slices/UserSlice'
-import productsReducer from '../slices/ProductsSlice'
-import ordersReducer from '../slices/OrdersSlice';
+import thunk from 'redux-thunk';
+import state from '../slices';
 
-const store = configureStore({
-    reducer:{
-        users: usersReducer,
-        products: productsReducer,
-        orders: ordersReducer,
-    }
-})
+const store = createStore (
+    state,
+    composeWithDevTools(applyMiddleware(thunk))
+)
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
