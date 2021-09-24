@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
-import usersReducer from '../slices/UserSlice'
-import productsReducer from '../slices/ProductsSlice'
-import ordersReducer from '../slices/OrdersSlice';
+import usersReducer from './UserSlice'
+import productsReducer from './ProductsSlice'
+import ordersReducer from './OrdersSlice';
 
 const state = combineReducers({
     users:usersReducer,

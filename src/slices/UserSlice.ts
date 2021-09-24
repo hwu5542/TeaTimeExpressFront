@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Users } from "../models/Users";
 import { RootState } from "../store/store";
-import { loginAdmin, loginCustomer, loginCustomerAsync, UsersActionTypes } from "../actionMappers/UsersMapper";
+import { loginAdmin, loginadminAsync, loginCustomer, loginCustomerAsync, signUpAsync, UsersActionTypes } from "../actionMappers/UsersMapper";
 
 export interface UserState{
     profile: Users;
@@ -26,6 +26,12 @@ export const usersSlice = createSlice({
             .addCase(loginCustomerAsync.pending, (state) => {
                 state.status = 'loading';
             })
+            // .addCase(loginadminAsync.pending, (state) => {
+            //     state.status = 'loading';
+            // })
+            // .addCase(signUpAsync.pending, (state) = > {
+            //     state.status = 'loading';
+            // })
             .addCase(loginCustomerAsync.fulfilled, (state, action) =>{
                 state.status = 'idle';
                 state.profile = action.payload || initialState.profile;

@@ -10,7 +10,7 @@ export const ApiGetUsers = async(username:String):Promise<Users|boolean> => {
 }
 
 export const ApiValidateUsers = async(username:String, password:String):Promise<boolean> => {
-    const response = await SpringClient.post<boolean>('login/', {username, password});
+    const response = await SpringClient.post<boolean>('users/login/', {username, password});
 
     if (response.status == 200) return response.data;
 

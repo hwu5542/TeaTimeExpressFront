@@ -6,7 +6,8 @@ import { ApiGetUsers, ApiValidateUsers } from "../remote/SpringApi";
 export enum UsersActionTypes {
     USERS_SIGNUP = 'users/signup',
     USERS_LOGIN_CUTOMER = 'users/customer',
-    USERS_LOGIN_ADMIN = 'users/admin'
+    USERS_LOGIN_ADMIN = 'users/admin',
+    USERS_LOGIN_CUTOMER_ASYNC = 'users/async/customer'
 }
 
 export type UsersActionLoginCustomer = {
@@ -41,7 +42,7 @@ export const loginAdmin = (state:any) => {
 }
 
 export const loginCustomerAsync = createAsyncThunk(
-    UsersActionTypes.USERS_LOGIN_CUTOMER,
+    UsersActionTypes.USERS_LOGIN_CUTOMER_ASYNC,
     async(username: String) => {
         const usersCredential = await ApiGetUsers(username);
         if (typeof usersCredential === 'object') return usersCredential;

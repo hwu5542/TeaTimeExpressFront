@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { signUpAsync } from "../actionMappers/UsersMapper";
-import { useAppDispatch } from "../store/hook";
+import { loginCustomerAsync, signUpAsync } from "../actionMappers/UsersMapper";
+import { UseAppDispatch } from "../store/hook";
 
 const SignUp:React.FC<unknown> = (props) => {
 
@@ -9,9 +9,9 @@ const SignUp:React.FC<unknown> = (props) => {
 
     const signUpValidate = async (event: { preventDefault: () => void; }) => { 
       event.preventDefault();
-      const dispatch = useAppDispatch();
-
-      dispatch(signUpAsync(username, password));
+      const dispatch = UseAppDispatch();
+      
+      dispatch(signUpAsync({username, password}));
     }
 
     return (
