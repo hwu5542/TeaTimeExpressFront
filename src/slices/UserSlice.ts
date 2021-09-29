@@ -1,7 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Users } from "../models/Users";
 import { RootState } from "../store/store";
 import { loginAdmin, loginadminAsync, loginCustomer, loginCustomerAsync, signUpAsync, UsersActionTypes } from "../actionMappers/UsersMapper";
+import { ApiValidateUsers } from "../remote/SpringApi";
 
 export interface UserState{
     profile: Users;
@@ -23,7 +24,7 @@ export const usersSlice = createSlice({
 
     extraReducers: (builder) => {
         builder
-            .addCase(loginCustomerAsync.pending, (state) => {
+            .addCase(signUpAsync.pending, (state) => {
                 state.status = 'loading';
             })
             // .addCase(loginadminAsync.pending, (state) => {
@@ -32,11 +33,11 @@ export const usersSlice = createSlice({
             // .addCase(signUpAsync.pending, (state) = > {
             //     state.status = 'loading';
             // })
-            .addCase(loginCustomerAsync.fulfilled, (state, action) =>{
+            .addCase(signUpAsync.fulfilled, (state, action) =>{
                 state.status = 'idle';
                 state.profile = action.payload || initialState.profile;
             })
-            .addCase(loginCustomerAsync.rejected, (state) => {
+            .addCase(signUpAsync.rejected, (state) => {
                 state.status = 'failed';
             })
     },

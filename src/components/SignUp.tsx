@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { loginCustomerAsync, signUpAsync } from "../actionMappers/UsersMapper";
-import { UseAppDispatch } from "../store/hook";
+import { useAppDispatch } from "../store/hook";
 
 const SignUp:React.FC<unknown> = (props) => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    
+    const dispatch = useAppDispatch();
 
-    const signUpValidate = async (event: { preventDefault: () => void; }) => { 
+    const SignUpValidate = async (event: { preventDefault: () => void; }) => { 
       event.preventDefault();
-      const dispatch = UseAppDispatch();
       
       dispatch(signUpAsync({username, password}));
     }
@@ -23,7 +24,7 @@ const SignUp:React.FC<unknown> = (props) => {
               <p className="col-lg-10 fs-4" id="registerPrompt">New customer can sign up here.</p>
             </div>
             <div className="col-md-10 mx-auto col-lg-5" id="signUpForm">
-              <form className="p-4 p-md-5 border rounded-3 bg-light" onSubmit={signUpValidate}>
+              <form className="p-4 p-md-5 border rounded-3 bg-light" onSubmit={SignUpValidate}>
                 <div className="form-floating mb-3">
                   <input type="text" className="form-control" id="floatingUsername" placeholder="Username" onChange={e => setUsername(e.target.value)}/>
                   <label htmlFor="floatingUsername">Username</label>
