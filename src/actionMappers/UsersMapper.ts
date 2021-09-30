@@ -1,4 +1,3 @@
-import { ActionCreator } from "redux";
 import { Users } from "../models/Users";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ApiGetUsers, ApiValidateUsers } from "../remote/SpringApi";
@@ -43,7 +42,7 @@ export const loginAdmin = (state:any) => {
 
 export const loginCustomerAsync = createAsyncThunk(
     UsersActionTypes.USERS_LOGIN_CUTOMER_ASYNC,
-    async(username: String) => {
+    async(username: string) => {
         const usersCredential = await ApiGetUsers(username);
         if (typeof usersCredential === 'object') return usersCredential;
     }
@@ -51,7 +50,7 @@ export const loginCustomerAsync = createAsyncThunk(
 
 export const loginadminAsync = createAsyncThunk(
     UsersActionTypes.USERS_LOGIN_ADMIN,
-    async(username: String) => {
+    async(username: string) => {
         const usersCredential = await ApiGetUsers(username);
         if (typeof usersCredential === 'object') return usersCredential;
     }
@@ -59,8 +58,8 @@ export const loginadminAsync = createAsyncThunk(
 
 export const signUpAsync = createAsyncThunk(
     UsersActionTypes.USERS_SIGNUP,
-    async (validatingCredential:{username: String, password:String}) => {
+    async (validatingCredential:{username: string, password:string}) => {
         const usersCredential = await ApiValidateUsers(validatingCredential.username, validatingCredential.password);
         if (typeof usersCredential === 'object') return usersCredential;
     }
-)
+);

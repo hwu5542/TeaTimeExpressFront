@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { loginCustomerAsync, signUpAsync } from "../actionMappers/UsersMapper";
-import { useAppDispatch } from "../store/hook";
+import { Users } from "../models/Users";
+import { selectUsers } from "../slices/UserSlice";
+import { useAppDispatch, UseAppSelector } from "../store/hook";
 
 const SignUp:React.FC<unknown> = (props) => {
 
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     
     const dispatch = useAppDispatch();
 

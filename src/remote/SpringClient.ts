@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const SpringClient = axios.create({
-    baseURL:'http://localhost:8081/teatimeexpress',
+    baseURL:'http://localhost:8081/',
     headers: {
         'Content-Type':'application/json'
     }
