@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { loginCustomerAsync, signUpAsync } from "../actionMappers/UsersMapper";
+import { signUpAsync } from "../actions/UsersActions";
 import { Users } from "../models/Users";
 import { selectUsers } from "../slices/UserSlice";
 import { useAppDispatch, UseAppSelector } from "../store/hook";
@@ -15,6 +15,8 @@ const SignUp:React.FC<unknown> = (props) => {
       event.preventDefault();
       
       dispatch(signUpAsync({username, password}));
+
+      
     }
 
     return (

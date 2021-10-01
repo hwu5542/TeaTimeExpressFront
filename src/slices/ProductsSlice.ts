@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { addInventory, getProduct, newProduct, setInventory } from "../actionMappers/ProductsMapper"
+import { addInventory, getProduct, newProduct, setInventory } from "../actions/ProductsActions"
 import { Inventory } from "../models/Inventory"
 import { Products } from "../models/Products"
 import { RootState } from "../store/store"

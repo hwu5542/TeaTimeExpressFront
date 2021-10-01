@@ -1,4 +1,3 @@
-import { combineReducers } from "redux";
 import usersReducer from './UserSlice'
 import productsReducer from './ProductsSlice'
 import ordersReducer from './OrdersSlice';

@@ -1,8 +1,9 @@
 import SpringClient from "./SpringClient"
 import { Users } from "../models/Users"
+import { UsersActionTypes } from "../actions/UsersActions";
 
-export const ApiGetUsers = async(username:string):Promise<Users|false> => {
-    const response = await SpringClient.get<Users>('teatimeexpress/users/' + username);
+export const ApiSignUpUsers = async(username:string, password:string):Promise<Users|false> => {
+    const response = await SpringClient.post<Users>(UsersActionTypes.USERS_SIGNUP, {username, password});
 
     if (response.status === 200) return response.data;
 
@@ -10,7 +11,7 @@ export const ApiGetUsers = async(username:string):Promise<Users|false> => {
 }
 
 export const ApiValidateUsers = async(username:string, password:string):Promise<Users|false> => {
-    const response = await SpringClient.post<Users>('teatimeexpress/users/login/', {username, password});
+    const response = await SpringClient.post<Users>(UsersActionTypes.USERS_LOGIN, {username, password});
 
     if (response.status == 200) return response.data;
 
