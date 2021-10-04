@@ -31,7 +31,7 @@ export const ApiSearchProducts = async(productsId:number):Promise<Products|false
 }
 
 export const ApiListProducts = async():Promise<Products[]|false> => {
-    const reponse = await SpringClient.get<Products[]>(ProductsActionTypes.GET_PRODUCT + 'all');
+    const reponse = await SpringClient.get<Products[]>(ProductsActionTypes.GET_PRODUCT_LIST);
 
     if (reponse.status == 200) return reponse.data;
 
@@ -47,7 +47,7 @@ export const ApiSearchOrders = async(ordersId:number):Promise<Orders|false> => {
 }
 
 export const ApiListOrders = async():Promise<Orders[]|false> => {
-    const response = await SpringClient.get<Orders[]>(OrdersActionTypes.GET_ORDER + 'all');
+    const response = await SpringClient.get<Orders[]>(OrdersActionTypes.GET_ORDER_LIST);
 
     if (response.status == 200) return response.data;
 

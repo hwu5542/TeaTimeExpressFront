@@ -7,7 +7,8 @@ export enum OrdersActionTypes {
     NEW_ORDER = 'orders/new',
     CANCEL_ORDER = 'orders/cancel',
     DELETE_ORDER = 'orders/delete',
-    GET_ORDER = 'orders/get'
+    GET_ORDER = 'orders/get',
+    GET_ORDER_LIST = 'orders/getAll'
 }
 
 export type OrdersActionNew = {
@@ -57,7 +58,7 @@ export const searchOrdersAsync = createAsyncThunk(
 )
 
 export const listOrdersAsync = createAsyncThunk(
-    OrdersActionTypes.GET_ORDER,
+    OrdersActionTypes.GET_ORDER_LIST,
     async () => {
         const order = await ApiListOrders();
         if (Array.isArray(order)) return order;

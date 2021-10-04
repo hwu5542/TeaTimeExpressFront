@@ -6,6 +6,7 @@ import { ApiListProducts, ApiSearchProducts } from "../remote/SpringApi"
 export enum ProductsActionTypes {
     NEW_PRODUCT = 'products/new',
     GET_PRODUCT = 'products/get',
+    GET_PRODUCT_LIST = 'products/getAll',
     ADD_INVENT = 'products/addinvent',
     SET_INVENT = 'products/setinvent'
 }
@@ -13,11 +14,6 @@ export enum ProductsActionTypes {
 export type ProductsActionNew = {
     type:ProductsActionTypes.NEW_PRODUCT,
     payload?:Products
-}
-
-export type ProductsActionGet = {
-    type:ProductsActionTypes.GET_PRODUCT,
-    payload?:Inventory
 }
 
 export type ProductsActionAddInvent = {
@@ -30,19 +26,12 @@ export type ProductsActionSetInvent = {
     payload?:Inventory
 }
 
-export type ProductsAction = ProductsActionNew | ProductsActionGet | ProductsActionAddInvent | ProductsActionSetInvent;
+export type ProductsAction = ProductsActionNew | ProductsActionAddInvent | ProductsActionSetInvent;
 
 export const newProduct = (newProduct:Products) => {
     return {
         type:ProductsActionTypes.NEW_PRODUCT,
         payload:newProduct
-    }
-}
-
-export const getProduct = (inventDec:Inventory) => {
-    return {
-        type:ProductsActionTypes.GET_PRODUCT,
-        payload:inventDec
     }
 }
 
@@ -69,7 +58,7 @@ export const searchProductsAsync = createAsyncThunk(
 )
 
 export const listProductsAsync = createAsyncThunk(
-    ProductsActionTypes.GET_PRODUCT,
+    ProductsActionTypes.GET_PRODUCT_LIST,
     async () => {
         const product = await ApiListProducts();
         if (Array.isArray(product)) return product;

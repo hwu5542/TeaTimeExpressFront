@@ -1,3 +1,4 @@
+import { render } from "@testing-library/react";
 import React, { useState, useRef } from "react";
 import { searchProductsAsync } from "../actions/ProductsActions";
 import { selectProducts } from "../slices/ProductsSlice";
@@ -17,19 +18,34 @@ export const ProductPage: React.FC = () => {
     }
 
     const getProductPic = () => {
-        let renderStr:string = '';
-        let index = 0;
         let images = product.product.product_image.split(';');
-        for (let singleImageLink of images) {
-            renderStr +=
-            '<div className="carousel-item' + (index++>0? '': ' active') + '">\n' +
-            '<img src = \'' + singleImageLink + '\' alt="' + numberLiteral[index] + ' slide" className="img-fluid" />\n' +
-            '</div>\n'
-        }
-        return renderStr;
+
+        // let renderImages:React.ReactFragment[] = [];
+        // let index = 0;
+        // for (let singleImageLink of images) {
+        //     renderImages[index] = () => {
+        //         return (
+        //             '<div className="carousel-item' + (index>0? '': ' active') + '">\n' +
+        //             '<img src = \'' + singleImageLink + '\' alt="' + numberLiteral[index] + ' slide" className="img-fluid" />\n' +
+        //             '</div>\n'        
+        //         )
+        //     }
+
+        //     index++;
+        // }
+
+        let index = 0;
+
+        return images.map(() => {
+                return (
+                    <div className= {"carousel-item" + (index > 0? "": " active")}>
+                        <img src = {images[index]} alt= {numberLiteral[index] + " slide"} className="img-fluid" />
+                    </div>
+                )
+        });
     }
     
-    reloadProduct;
+    reloadProduct();
 
     return (
         <div className="container mt-5 pt-3">
