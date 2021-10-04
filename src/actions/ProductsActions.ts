@@ -1,6 +1,7 @@
-import { ActionCreator } from "redux"
+import { createAsyncThunk } from "@reduxjs/toolkit"
 import { Inventory } from "../models/Inventory"
 import { Products } from "../models/Products"
+import { ApiListProducts, ApiSearchProducts } from "../remote/SpringApi"
 
 export enum ProductsActionTypes {
     NEW_PRODUCT = 'products/new',
@@ -58,3 +59,19 @@ export const setInventory = (inventSet:Inventory) => {
         payload:inventSet
     }
 }
+
+export const searchProductsAsync = createAsyncThunk(
+    ProductsActionTypes.GET_PRODUCT,
+    async (productsId:number) => {
+        const product = await ApiSearchProducts(productsId);
+        if (typeof product === 'object') return product;
+    }
+)
+
+export const listProductsAsync = createAsyncThunk(
+    ProductsActionTypes.GET_PRODUCT,
+    async () => {
+        const product = await ApiListProducts();
+        if (Array.isArray(product)) return product;
+    }
+)

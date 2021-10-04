@@ -1,15 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { cancelOrder, deleteOrder, newOrder } from "../actions/OrdersActions";
+import { cancelOrder, deleteOrder, listOrdersAsync, newOrder, searchOrdersAsync } from "../actions/OrdersActions";
 import { Orders } from "../models/Orders";
 import { RootState } from "../store/store";
 
 export interface ordersState {
-    orders: Orders;
+    order: Orders;
+    orders: Orders[];
     status: 'idle' | 'loading' | 'failed';
 }
 
 const initialState:ordersState = {
-    orders : new Orders(0, 0, 0, 0, 0, ""),
+    order : new Orders(0, 0, 0, 0, 0, ""),
+    orders : [],
     status : 'idle'
 }
 
@@ -17,11 +19,35 @@ const ordersSlice = createSlice({
     name:'orders',
     initialState,
     reducers:{
-        newOrderAction:(state) => {state.orders = newOrder(state.orders).payload}
+        newOrderAction:(state) => {state.order = newOrder(state.order).payload}
         // cancelOrderAction:(state) => {state.orders = cancelOrder(state.orders.order_number).payload}
         // deleteOrderAction:(state) => {state.orders = deleteOrder(state.orders)}
     },
-    extraReducers:{}
+
+    extraReducers:(builder) => {
+        builder
+            .addCase(searchOrdersAsync.pending, (state) => {
+                state.status = 'loading'
+            })
+            .addCase(searchOrdersAsync.fulfilled, (state, action) => {
+                state.order = action.payload || initialState.order;
+                state.status = 'idle';
+            })
+            .addCase(searchOrdersAsync.rejected, (state) => {
+                state.status = 'failed'
+            })
+            
+            .addCase(listOrdersAsync.pending, (state) => {
+                state.status = 'loading'
+            })
+            .addCase(listOrdersAsync.fulfilled, (state, action) => {
+                state.orders = action.payload || initialState.orders;
+                state.status = 'idle';
+            })
+            .addCase(listOrdersAsync.rejected, (state) => {
+                state.status = 'failed'
+            })
+    }
 })
 
 export const { newOrderAction } = ordersSlice.actions;

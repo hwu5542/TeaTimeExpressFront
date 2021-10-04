@@ -131,11 +131,14 @@ export const ProductPage2: React.FC<unknown> = (props) => {
                                         <label><strong>Quantity</strong></label>
                                         <div className="input-group mb-3 input-spinner">
                                             <div className="input-group-prepend">
-                                                <button className="btn btn-light" type="button" id="button-minus" onClick ={() => { if (quantity > 1) {setQuantity(quantity - 1); if (inputRef.current) inputRef.current.value = '' + quantity; }}}> &minus; </button>
+                                                <button className="btn btn-light" type="button" id="button-minus" onClick ={() => {if (quantity > 1) {setQuantity(quantity - 1); if (inputRef.current) inputRef.current.value = '' + quantity; }}}> &minus; </button>
                                             </div>
-                                            <input type="text" className="input-group-append" ref={inputRef} defaultValue={quantity} onChange={e => { if (typeof e.target.value == 'number') setQuantity(e.target.value) }} style={{ textAlign: 'center', width: 52, padding: '10px 15px', margin: '0 5px' }} />
+                                            <input type="text" className="input-group-append" ref={inputRef} defaultValue={quantity} onChange={e => {if (99> quantity && quantity > 1) setQuantity(parseInt(e.target.value)); else e.target.value = '' + quantity}} style={{ textAlign: 'center', width: 52, padding: '10px 15px', margin: '0 5px' }} />
                                             <div className="input-group-append">
-                                                <button className="btn btn-light" type="button" id="button-plus" onClick ={() => { if (quantity < 99) setQuantity(quantity + 1); if (inputRef.current) inputRef.current.value = '' + quantity; }}> + </button>
+                                                <button className="btn btn-light" type="button" id="button-plus" onClick ={() => {if (quantity < 99) {setQuantity(quantity + 1); if (inputRef.current) inputRef.current.value = '' + quantity; }}}> + </button>
+                                            </div>
+                                            <div className="input-group-append">
+                                                <button className="btn btn-light" type="button" onClick = {() => console.log('quantity : ' + quantity + '  inputRef : ' + inputRef.current?.value)}></button>
                                             </div>
 
                                         </div>

@@ -1,17 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { addInventory, getProduct, newProduct, setInventory } from "../actions/ProductsActions"
+import { addInventory, listProductsAsync, newProduct, searchProductsAsync, setInventory } from "../actions/ProductsActions"
 import { Inventory } from "../models/Inventory"
 import { Products } from "../models/Products"
 import { RootState } from "../store/store"
 
 export interface ProductsState {
     product: Products;
+    products: Products[];
     inventory: Inventory;
     status: 'idle' | 'loading' | 'failed';
 }
 
 const initialState:ProductsState = {
     product: new Products(0, "", 0, "", 0, 0, ""),
+    products: [],
     inventory: new Inventory(0, 0),
     status: 'idle'
 }
@@ -21,13 +23,37 @@ const productsSlices = createSlice({
     initialState,
     reducers:{
         newProductAction: (state) => {state.product = newProduct(state.product).payload},
-        getProductAction: (state) => {state.product.product_order_amt += getProduct(state.inventory).payload.change_amount},
         addInventoryAction: (state) => {state.product.product_stock_amt += addInventory(state.inventory).payload.change_amount},
         setInventoryAction: (state) => {state.product.product_stock_amt = setInventory(state.inventory).payload.change_amount}
     },
-    extraReducers:{},
+    extraReducers:(builder) => {
+        builder
+            .addCase(searchProductsAsync.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(searchProductsAsync.fulfilled, (state, action) => {
+                state.product = action.payload || initialState.product;
+                state.status = 'idle';
+            })
+            .addCase(searchProductsAsync.rejected, (state) => {
+                state.status = 'failed';
+            })
+
+            .addCase(listProductsAsync.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(listProductsAsync.fulfilled, (state, action) => {
+                state.products = action.payload || initialState.products;
+                state.status = 'idle';
+            })
+            .addCase(listProductsAsync.rejected, (state) => {
+                state.status = 'failed';
+            })
+    },
 })
 
-export const { newProductAction, getProductAction, addInventoryAction, setInventoryAction } = productsSlices.actions;
+export const { newProductAction, addInventoryAction, setInventoryAction } = productsSlices.actions;
+
 export const selectProducts = (state:RootState) => (state.products);
+
 export default productsSlices.reducer;
