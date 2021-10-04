@@ -15,8 +15,6 @@ const SignUp:React.FC<unknown> = (props) => {
       event.preventDefault();
       
       dispatch(signUpAsync({username, password}));
-
-      
     }
 
     return (

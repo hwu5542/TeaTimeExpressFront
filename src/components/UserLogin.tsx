@@ -12,7 +12,6 @@ export const UserLogin: React.FC<unknown> = (props) => {
       event.preventDefault();
       
       dispatch(loginAsync({username, password}));
-
       
     }
     
