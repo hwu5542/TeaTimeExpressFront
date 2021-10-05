@@ -2,34 +2,22 @@ import catImage from '../images/catImage.jpg'
 import React from "react";
 import { useAppDispatch, UseAppSelector } from '../store/hook';
 import { selectProducts } from '../slices/ProductsSlice';
-import { Products } from '../models/Products';
 import { listProductsAsync } from '../actions/ProductsActions';
+import { Products } from '../models/Products';
+import { useEffect } from 'react';
 
 const ShoppingPage: React.FC = () => {
-  const dispatch = useAppDispatch();
-
+  
   const productsList = UseAppSelector(selectProducts).products;
 
-  const ShoppingPageCardsContainer = async () => {
-    dispatch(listProductsAsync());
+  const dispatch = useAppDispatch();
 
-    console.log(productsList);
+  useEffect(()=>{
+    dispatch(listProductsAsync())
+  }, [dispatch]);
 
-    //async parts
-    // const dispatch = useAppDispatch();
-
-    // dispatch(searchProductsAsync(1));
-    
-    
-
-    // return productsList.map(ShoppingPageCards);
-
-    // for (let singleProduct of productsList) {
-    //   allCards[index] = ShoppingPageCards(singleProduct);
-    // }
-
-    // return allCards;
-  }
+  const ShoppingPageCardsContainer = () => (<div></div>);
+  //  productsList.map(ShoppingPageCards)
 
   // const ShoppingPageCards = (product: Products) => {
   //   let image = product.product_image.split(';')[0];

@@ -10,7 +10,7 @@ export interface ordersState {
 }
 
 const initialState:ordersState = {
-    order : new Orders(0, 0, 0, 0, 0, ""),
+    order : new Orders(0, 0, 0, 0, "", ""),
     orders : [],
     status : 'idle'
 }

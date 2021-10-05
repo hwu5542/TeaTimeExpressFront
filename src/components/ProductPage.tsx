@@ -10,17 +10,24 @@ export const ProductPage: React.FC = () => {
 
     const [quantity, setQuantity] = useState(1);
     const [inputRef] = useState(useRef<HTMLInputElement>(null));
-    const [product] = useState(UseAppSelector(selectProducts).product);
+
+    const product = UseAppSelector(selectProducts).product;
+
+    const dispatch = useAppDispatch();
+
+    useEffect(()=>{
+        dispatch(searchProductsAsync(1))
+    }, [dispatch]);
 
     let index = 0;
+    
 
     const getProductPic = () => (
-        product.product_image.split(';').map((image) => (
+        product.productImage.split(';').map((image) => (
             <div className={"carousel-item" + (index > 0 ? "" : " active")}>
-                <img src={image} alt={numberLiteral[index++] + " slide"} className="img-fluid" />
+                <img src={`${process.env.PUBLIC_URL}/assets/images/${image}.jpg`} alt={numberLiteral[index++] + " slide"} className="img-fluid" />
             </div>
-        ))
-    )
+        )))
 
     return (
         <div className="container mt-5 pt-3">
@@ -49,15 +56,15 @@ export const ProductPage: React.FC = () => {
                         </div>
                         <div className="col-lg-5 mr-3 text-center text-md-left">
                             <h2 className="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
-                                <strong>Sony headphones</strong>
+                                <strong>{product.productName}</strong>
                             </h2>
                             <h3 className="h3-responsive text-center text-md-left mb-5 ml-xl-0 ml-4">
                                 <span className="red-text font-weight-bold">
-                                    <strong>$49</strong>
+                                    <strong>${product.productPrice}</strong>
                                 </span>
                                 <span className="grey-text">
                                     <small>
-                                        <s>$89</s>
+                                        <s>$2998.99</s>
                                     </small>
                                 </span>
                             </h3>
@@ -78,9 +85,7 @@ export const ProductPage: React.FC = () => {
 
                                     <div id="collapseOne1" className="collapse show" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
                                         <div className="card-body">
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                                            non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-                                            tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                                            {product.productDescription}
                                         </div>
                                     </div>
                                 </div>

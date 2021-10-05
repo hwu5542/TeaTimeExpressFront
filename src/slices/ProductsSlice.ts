@@ -12,8 +12,8 @@ export interface ProductsState {
 }
 
 const initialState:ProductsState = {
-    product: new Products(0, "", 0, "", 0, 0, ""),
-    products: [],
+    product: new Products(0, '', '', '../image/teaImage.jpg', 0, 0, 0, 0),
+    products: [new Products(0, '', '', '../image/teaImage.jpg', 0, 0, 0, 0)],
     inventory: new Inventory(0, 0),
     status: 'idle'
 }
@@ -23,8 +23,8 @@ const productsSlices = createSlice({
     initialState,
     reducers:{
         newProductAction: (state) => {state.product = newProduct(state.product).payload},
-        addInventoryAction: (state) => {state.product.product_stock_amt += addInventory(state.inventory).payload.change_amount},
-        setInventoryAction: (state) => {state.product.product_stock_amt = setInventory(state.inventory).payload.change_amount}
+        addInventoryAction: (state) => {state.product.productStockAmt += addInventory(state.inventory).payload.change_amount},
+        setInventoryAction: (state) => {state.product.productStockAmt = setInventory(state.inventory).payload.change_amount}
     },
     extraReducers:(builder) => {
         builder
