@@ -1,51 +1,26 @@
-import { render } from "@testing-library/react";
 import React, { useState, useRef } from "react";
+import { useEffect } from "react";
 import { searchProductsAsync } from "../actions/ProductsActions";
 import { selectProducts } from "../slices/ProductsSlice";
 import { useAppDispatch, UseAppSelector } from "../store/hook";
 
 export const ProductPage: React.FC = () => {
-    const [quantity, setQuantity] = useState(1);
-    const [inputRef] = useState(useRef<HTMLInputElement>(null));
-    const [product, setProduct] = useState(UseAppSelector(selectProducts));
 
     const numberLiteral = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh', 'Eighth', 'Ninth', 'Tenth'];
 
-    const dispatch = useAppDispatch();
+    const [quantity, setQuantity] = useState(1);
+    const [inputRef] = useState(useRef<HTMLInputElement>(null));
+    const [product] = useState(UseAppSelector(selectProducts).product);
 
-    const reloadProduct = async() => {
-        dispatch(searchProductsAsync(product.product.product_number));
-    }
+    let index = 0;
 
-    const getProductPic = () => {
-        let images = product.product.product_image.split(';');
-
-        // let renderImages:React.ReactFragment[] = [];
-        // let index = 0;
-        // for (let singleImageLink of images) {
-        //     renderImages[index] = () => {
-        //         return (
-        //             '<div className="carousel-item' + (index>0? '': ' active') + '">\n' +
-        //             '<img src = \'' + singleImageLink + '\' alt="' + numberLiteral[index] + ' slide" className="img-fluid" />\n' +
-        //             '</div>\n'        
-        //         )
-        //     }
-
-        //     index++;
-        // }
-
-        let index = 0;
-
-        return images.map(() => {
-                return (
-                    <div className= {"carousel-item" + (index > 0? "": " active")}>
-                        <img src = {images[index]} alt= {numberLiteral[index] + " slide"} className="img-fluid" />
-                    </div>
-                )
-        });
-    }
-    
-    reloadProduct();
+    const getProductPic = () => (
+        product.product_image.split(';').map((image) => (
+            <div className={"carousel-item" + (index > 0 ? "" : " active")}>
+                <img src={image} alt={numberLiteral[index++] + " slide"} className="img-fluid" />
+            </div>
+        ))
+    )
 
     return (
         <div className="container mt-5 pt-3">
@@ -57,9 +32,8 @@ export const ProductPage: React.FC = () => {
                         <div className="col-lg-6">
 
                             <div id="carousel-thumb" className="carousel slide carousel-fade carousel-thumbnails" data-ride="carousel">
-
                                 <div className="carousel-inner text-center text-md-left" role="listbox">
-                                    {getProductPic}
+                                    {getProductPic()}
                                 </div>
 
                                 <a className="carousel-control-prev" href="#carousel-thumb" role="button" data-slide="prev">
@@ -70,7 +44,6 @@ export const ProductPage: React.FC = () => {
                                     <span className="carousel-control-next-icon" aria-hidden="true"></span>
                                     <span className="sr-only">Next</span>
                                 </a>
-
                             </div>
 
                         </div>
@@ -163,14 +136,14 @@ export const ProductPage: React.FC = () => {
                                         <label><strong>Quantity</strong></label>
                                         <div className="input-group mb-3 input-spinner">
                                             <div className="input-group-prepend">
-                                                <button className="btn btn-light" type="button" id="button-minus" onClick ={() => {if (quantity > 1) {setQuantity(quantity - 1); if (inputRef.current) inputRef.current.value = '' + quantity; }}}> &minus; </button>
+                                                <button className="btn btn-light" type="button" id="button-minus" onClick={() => { if (quantity > 1) { setQuantity(quantity - 1); if (inputRef.current) inputRef.current.value = '' + quantity; } }}> &minus; </button>
                                             </div>
-                                            <input type="text" className="input-group-append" ref={inputRef} defaultValue={quantity} onChange={e => {if (99> quantity && quantity > 1) setQuantity(parseInt(e.target.value)); else e.target.value = '' + quantity}} style={{ textAlign: 'center', width: 52, padding: '10px 15px', margin: '0 5px' }} />
+                                            <input type="text" className="input-group-append" ref={inputRef} defaultValue={quantity} onChange={e => { if (99 > quantity && quantity > 1) setQuantity(parseInt(e.target.value)); else e.target.value = '' + quantity }} style={{ textAlign: 'center', width: 52, padding: '10px 15px', margin: '0 5px' }} />
                                             <div className="input-group-append">
-                                                <button className="btn btn-light" type="button" id="button-plus" onClick ={() => {if (quantity < 99) {setQuantity(quantity + 1); if (inputRef.current) inputRef.current.value = '' + quantity; }}}> + </button>
+                                                <button className="btn btn-light" type="button" id="button-plus" onClick={() => { if (quantity < 99) { setQuantity(quantity + 1); if (inputRef.current) inputRef.current.value = '' + quantity; } }}> + </button>
                                             </div>
                                             <div className="input-group-append">
-                                                <button className="btn btn-light" type="button" onClick = {() => console.log('quantity : ' + quantity + '  inputRef : ' + inputRef.current?.value)}></button>
+                                                <button className="btn btn-light" type="button" onClick={() => console.log('quantity : ' + quantity + '  inputRef : ' + inputRef.current?.value)}></button>
                                             </div>
 
                                         </div>
@@ -188,6 +161,5 @@ export const ProductPage: React.FC = () => {
                 </div>
             </section>
         </div>
-
     )
 }
