@@ -4,6 +4,7 @@ export class Products {
         public productName:string,
         public productDescription:string,
         public productImage:string,
+        public productListImage:string,
         public productPrice:number,
         public productWeight:number,
         public productStockAmt:number,

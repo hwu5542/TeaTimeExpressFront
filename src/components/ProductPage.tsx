@@ -3,8 +3,9 @@ import { useEffect } from "react";
 import { searchProductsAsync } from "../actions/ProductsActions";
 import { selectProducts } from "../slices/ProductsSlice";
 import { useAppDispatch, UseAppSelector } from "../store/hook";
+import { useParams } from "react-router-dom";
 
-export const ProductPage: React.FC = () => {
+const ProductPage: React.FC = () => {
 
     const numberLiteral = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh', 'Eighth', 'Ninth', 'Tenth'];
 
@@ -15,8 +16,11 @@ export const ProductPage: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
+    const params:any = useParams();
+    const productId = Number.parseInt(params.productid);
+
     useEffect(()=>{
-        dispatch(searchProductsAsync(1))
+        dispatch(searchProductsAsync(productId))
     }, [dispatch]);
 
     let index = 0;
@@ -141,11 +145,11 @@ export const ProductPage: React.FC = () => {
                                         <label><strong>Quantity</strong></label>
                                         <div className="input-group mb-3 input-spinner">
                                             <div className="input-group-prepend">
-                                                <button className="btn btn-light" type="button" id="button-minus" onClick={() => { if (quantity > 1) { setQuantity(quantity - 1); if (inputRef.current) inputRef.current.value = '' + quantity; } }}> &minus; </button>
+                                                <button className="btn btn-light" type="button" id="button-minus" onClick={() => { if (quantity > 1 && inputRef.current) { inputRef.current.value = '' + (quantity-1); setQuantity(quantity - 1); } }}> &minus; </button>
                                             </div>
-                                            <input type="text" className="input-group-append" ref={inputRef} defaultValue={quantity} onChange={e => { if (99 > quantity && quantity > 1) setQuantity(parseInt(e.target.value)); else e.target.value = '' + quantity }} style={{ textAlign: 'center', width: 52, padding: '10px 15px', margin: '0 5px' }} />
+                                            <input type="text" className="input-group-append" ref={inputRef} defaultValue={quantity} onChange={e => { if (99 > quantity && quantity > 1) setQuantity(parseInt(e.target.value));}} style={{ textAlign: 'center', width: 52, padding: '10px 15px', margin: '0 5px' }} />
                                             <div className="input-group-append">
-                                                <button className="btn btn-light" type="button" id="button-plus" onClick={() => { if (quantity < 99) { setQuantity(quantity + 1); if (inputRef.current) inputRef.current.value = '' + quantity; } }}> + </button>
+                                                <button className="btn btn-light" type="button" id="button-plus" onClick={() => { if (quantity < 99 && inputRef.current) { inputRef.current.value = '' + (quantity+1); setQuantity(quantity + 1); } }}> + </button>
                                             </div>
                                             <div className="input-group-append">
                                                 <button className="btn btn-light" type="button" onClick={() => console.log('quantity : ' + quantity + '  inputRef : ' + inputRef.current?.value)}></button>
@@ -168,3 +172,5 @@ export const ProductPage: React.FC = () => {
         </div>
     )
 }
+
+export default ProductPage;

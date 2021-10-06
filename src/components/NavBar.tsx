@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import "../css/NavBar.css"
 import { UserLogin } from "./UserLogin";
@@ -12,13 +12,6 @@ const Navbar:React.FC<unknown> = (props) => {
             </button>
 
             <div id="navbarCollapse" className="collapse navbar-collapse justify-content-start">
-                <div className='navbar-nav'>
-                    <NavLink className='nav-item nav-link' to='/products'>Products</NavLink>
-                </div>
-                <div className='navbar-nav'>
-                    <NavLink className='nav-item nav-link' to='/products2'>Products2</NavLink>
-                </div>
-
                 <div className="nav-item dropdown" id="servicesPlaceHolder">
 
                 </div>
