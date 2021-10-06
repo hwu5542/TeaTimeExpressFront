@@ -151,10 +151,6 @@ const ProductPage: React.FC = () => {
                                             <div className="input-group-append">
                                                 <button className="btn btn-light" type="button" id="button-plus" onClick={() => { if (quantity < 99 && inputRef.current) { inputRef.current.value = '' + (quantity+1); setQuantity(quantity + 1); } }}> + </button>
                                             </div>
-                                            <div className="input-group-append">
-                                                <button className="btn btn-light" type="button" onClick={() => console.log('quantity : ' + quantity + '  inputRef : ' + inputRef.current?.value)}></button>
-                                            </div>
-
                                         </div>
 
                                         <button className="btn btn-primary btn-rounded">

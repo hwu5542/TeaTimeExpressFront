@@ -12,15 +12,10 @@ const Navbar:React.FC<unknown> = (props) => {
             </button>
 
             <div id="navbarCollapse" className="collapse navbar-collapse justify-content-start">
-                <div className="nav-item dropdown" id="servicesPlaceHolder">
-
-                </div>
-
                 <div className='navbar-nav'>
                     <NavLink className='nav-item nav-link' to='/Shopping'>Shopping</NavLink>
                 </div>
-                <form className="navbar-form form-inline search-form" id="searchPlaceHolder">
-                </form>
+
                 <UserLogin/>
             </div>
 

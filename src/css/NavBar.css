@@ -91,6 +91,13 @@ body {
 .navbar .login-dropdown .dropdown-toggle::after {
 	display: none;
 }
+#loginNavbarAnchor {
+    background-color: rgba(248, 249, 250);
+    border:none;
+}
+#loginNavbarAnchor:hover, #loginNavbarAnchor:focus {
+	color: #29c68c !important;
+}
 @media (min-width: 1200px){
 	.search-form .input-group {
 		width: 300px;

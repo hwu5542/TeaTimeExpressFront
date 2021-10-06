@@ -12,8 +12,8 @@ export interface ProductsState {
 }
 
 const initialState:ProductsState = {
-    product: new Products(0, '', '', 'teaImage', 'teaImage', 0, 0, 0, 0),
-    products: [new Products(0, '', '', 'teaImage', 'teaImage', 0, 0, 0, 0)],
+    product: new Products(0, '', '', 'teaImage', 'teaListImage', 0, 0, 0, 0),
+    products: [new Products(0, '', '', 'teaImage', 'teaListImage', 0, 0, 0, 0)],
     inventory: new Inventory(0, 0),
     status: 'idle'
 }
