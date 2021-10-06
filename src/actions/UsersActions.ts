@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ApiSignUpUsers, ApiValidateUsers } from "../remote/SpringApi";
+import { UserState } from "../slices/UserSlice";
 
 export enum UsersActionTypes {
     USERS_SIGNUP = 'users/signUp',

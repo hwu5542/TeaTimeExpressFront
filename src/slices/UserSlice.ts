@@ -16,7 +16,9 @@ const initialState: UserState = {
 export const usersSlice = createSlice({
     name: 'users',
     initialState,
-    reducers: {},
+    reducers: {
+        logoutAction: (state) => {state = initialState;}
+    },
 
     extraReducers: (builder) => {
         builder
@@ -43,6 +45,8 @@ export const usersSlice = createSlice({
             })
     },
 })
+
+export const { logoutAction } = usersSlice.actions;
 
 export const selectUsers = (state: RootState) => state.users;
 

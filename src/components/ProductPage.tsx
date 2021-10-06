@@ -16,15 +16,15 @@ const ProductPage: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
-    const params:any = useParams();
+    const params: any = useParams();
     const productId = Number.parseInt(params.productid);
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(searchProductsAsync(productId))
     }, [dispatch]);
 
     let index = 0;
-    
+
 
     const getProductPic = () => (
         product.productImage.split(';').map((image) => (
@@ -73,71 +73,37 @@ const ProductPage: React.FC = () => {
                                 </span>
                             </h3>
 
-                            <div className="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
-
-
-                                <div className="card">
-
-                                    <div className="card-header" role="tab" id="headingOne1">
-                                        <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
-                                            <h5 className="mb-0">
-                                                Description
-                                                <i className="fas fa-angle-down rotate-icon"></i>
-                                            </h5>
-                                        </a>
+                            <div className="flex-shrink-0 p-3 bg-white">
+                            <ul className="list-unstyled ps-0">
+                                <li className="mb-1">
+                                    <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+                                        <h5 className="mb-0" id="flashHover">Description</h5>
+                                    </button>
+                                    <div className="collapse show" id="home-collapse">
+                                        <p>{product.productDescription}</p>
+                                        <p>Stock Remaining Amount: {product.productStockAmt - product.productOrderAmt}</p>
                                     </div>
-
-                                    <div id="collapseOne1" className="collapse show" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
-                                        <div className="card-body">
-                                            {product.productDescription}
-                                        </div>
+                                </li>
+                                <li className="mb-1">
+                                    <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                                        <h5 className="mb-0" id="flashHover">Detail</h5>
+                                    </button>
+                                    <div className="collapse" id="dashboard-collapse">
+                                    <p>Add detail here: </p>
                                     </div>
-                                </div>
-
-
-                                <div className="card">
-
-
-                                    <div className="card-header" role="tab" id="headingTwo2">
-                                        <a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo2">
-                                            <h5 className="mb-0">
-                                                Details
-                                                <i className="fas fa-angle-down rotate-icon"></i>
-                                            </h5>
-                                        </a>
+                                </li>
+                                <li className="mb-1">
+                                    <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+                                        <h5 className="mb-0" id="flashHover">Shipping</h5>
+                                    </button>
+                                    <div className="collapse" id="orders-collapse">
+                                        <p>Product Weight: {product.productWeight}</p>
                                     </div>
-
-
-                                    <div id="collapseTwo2" className="collapse" role="tabpanel" aria-labelledby="headingTwo2" data-parent="#accordionEx">
-                                        <div className="card-body">
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                                            non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-                                            tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div className="card">
-                                    <div className="card-header" role="tab" id="headingThree3">
-                                        <a className="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree3" aria-expanded="false" aria-controls="collapseThree3">
-                                            <h5 className="mb-0">
-                                                Shipping
-                                                <i className="fas fa-angle-down rotate-icon"></i>
-                                            </h5>
-                                        </a>
-                                    </div>
-
-
-                                    <div id="collapseThree3" className="collapse" role="tabpanel" aria-labelledby="headingThree3" data-parent="#accordionEx">
-                                        <div className="card-body">
-                                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                                            non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-                                            tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-                                        </div>
-                                    </div>
-                                </div>
+                                </li>
+                                <li className="border-top my-3"></li>
+                            </ul>
                             </div>
+
 
                             <section className="quantity">
                                 <div className="mt-5">
@@ -145,11 +111,11 @@ const ProductPage: React.FC = () => {
                                         <label><strong>Quantity</strong></label>
                                         <div className="input-group mb-3 input-spinner">
                                             <div className="input-group-prepend">
-                                                <button className="btn btn-light" type="button" id="button-minus" onClick={() => { if (quantity > 1 && inputRef.current) { inputRef.current.value = '' + (quantity-1); setQuantity(quantity - 1); } }}> &minus; </button>
+                                                <button className="btn btn-light" type="button" id="button-minus" onClick={() => { if (quantity > 1 && inputRef.current) { inputRef.current.value = '' + (quantity - 1); setQuantity(quantity - 1); } }}> &minus; </button>
                                             </div>
-                                            <input type="text" className="input-group-append" ref={inputRef} defaultValue={quantity} onChange={e => { if (99 > quantity && quantity > 1) setQuantity(parseInt(e.target.value));}} style={{ textAlign: 'center', width: 52, padding: '10px 15px', margin: '0 5px' }} />
+                                            <input type="text" className="input-group-append" ref={inputRef} defaultValue={quantity} onChange={e => { if (99 > quantity && quantity > 1) setQuantity(parseInt(e.target.value)); }} style={{ textAlign: 'center', width: 52, padding: '10px 15px', margin: '0 5px', border: 'none' }} />
                                             <div className="input-group-append">
-                                                <button className="btn btn-light" type="button" id="button-plus" onClick={() => { if (quantity < 99 && inputRef.current) { inputRef.current.value = '' + (quantity+1); setQuantity(quantity + 1); } }}> + </button>
+                                                <button className="btn btn-light" type="button" id="button-plus" onClick={() => { if (quantity < 99 && inputRef.current) { inputRef.current.value = '' + (quantity + 1); setQuantity(quantity + 1); } }}> + </button>
                                             </div>
                                         </div>
 

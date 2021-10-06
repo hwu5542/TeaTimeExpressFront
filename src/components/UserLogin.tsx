@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { loginAsync } from "../actions/UsersActions";
 import { useAppDispatch } from "../store/hook";
 
@@ -8,11 +9,14 @@ export const UserLogin: React.FC<unknown> = (props) => {
 
     const dispatch = useAppDispatch();
 
+    // useEffect ({
+    //     //this and that
+    // }, [dispatch])
+
     const loginValidate = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
 
         dispatch(loginAsync({ username, password }));
-
     }
 
     return (
@@ -27,7 +31,7 @@ export const UserLogin: React.FC<unknown> = (props) => {
                                     <span className="fa fa-user"></span>
                                 </span>
                             </div>
-                            <input type="text" className="form-control" id="user-username" placeholder="username" required />
+                            <input type="text" className="form-control" id="user-username" placeholder="username" required onChange={e => setUsername(e.target.value)}/>
                         </div>
                         <div className="input-group">
                             <div className="input-group-prepend">
@@ -35,7 +39,7 @@ export const UserLogin: React.FC<unknown> = (props) => {
                                     <i className="fa fa-user"></i>
                                 </span>
                             </div>
-                            <input type="text" className="form-control" id="user-password" placeholder="password" autoComplete="on" required />
+                            <input type="password" className="form-control" id="user-password" placeholder="password" autoComplete="on" required onChange = {e => setPassword(e.target.value)}/>
                         </div>
                         <button id="btn-login" type="submit" className="btn btn-primary">Login</button>
                     </form>

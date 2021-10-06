@@ -20,7 +20,7 @@ const ShoppingPage: React.FC = () => {
     productsList.map(ShoppingPageCards));
 
   const ShoppingPageCards = (product: Products) => (
-    <div className="col">
+    <div className="col" key={product.productId}>
       <Link className='nav-item nav-link' to={'/products/'+product.productId}>
         <div className="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style={{ backgroundSize: 'cover', backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/${product.productListImage}.jpg)`, backgroundRepeat: 'no-repeat' }}>
           <div className="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
