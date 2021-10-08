@@ -16,7 +16,7 @@ export const UserLogin: React.FC<unknown> = (props) => {
     const loginValidate = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
 
-        dispatch(loginAsync({ username, password }));
+        dispatch(loginAsync({username, password}));
     }
 
     return (

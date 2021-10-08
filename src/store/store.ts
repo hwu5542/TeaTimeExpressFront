@@ -1,4 +1,4 @@
-import { ThunkAction, Action, configureStore } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import state from '../slices';
 
 export const store = configureStore({

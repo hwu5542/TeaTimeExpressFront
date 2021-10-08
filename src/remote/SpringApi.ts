@@ -5,17 +5,18 @@ import { ProductsActionTypes } from "../actions/ProductsActions";
 import { Products } from "../models/Products";
 import { OrdersActionTypes } from "../actions/OrdersActions";
 import { Orders } from "../models/Orders";
+import { UserCredential } from "../models/UserCredential";
 
-export const ApiSignUpUsers = async(username:string, password:string):Promise<Users|false> => {
-    const response = await SpringClient.post<Users>(UsersActionTypes.USERS_SIGNUP, {username, password});
+export const ApiSignUpUsers = async(credential:UserCredential):Promise<Users|false> => {
+    const response = await SpringClient.post<Users>(UsersActionTypes.USERS_SIGNUP, credential);
 
     if (response.status === 200) return response.data;
 
     return false;
 }
 
-export const ApiValidateUsers = async(username:string, password:string):Promise<Users|false> => {
-    const response = await SpringClient.post<Users>(UsersActionTypes.USERS_LOGIN, {username, password});
+export const ApiValidateUsers = async(credential:UserCredential):Promise<Users|false> => {
+    const response = await SpringClient.post<Users>(UsersActionTypes.USERS_LOGIN, credential);
 
     if (response.status == 200) return response.data;
 
