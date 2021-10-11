@@ -91,6 +91,12 @@ body {
 .navbar .login-dropdown .dropdown-toggle::after {
 	display: none;
 }
+.navbar .text-end .dropdown-menu {
+	width: 200px;
+	padding: 20px;
+	left: auto;
+	right: 0;        
+}
 #loginNavbarAnchor {
     background-color: rgba(248, 249, 250);
     border:none;

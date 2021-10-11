@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import { signUpAsync } from "../actions/UsersActions";
+import { Users } from "../models/Users";
+import { selectUsers } from "../slices/UserSlice";
 import { useAppDispatch, UseAppSelector } from "../store/hook";
 
 const SignUp:React.FC<unknown> = (props) => {
@@ -7,15 +10,26 @@ const SignUp:React.FC<unknown> = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     
+    const [redirectState, setRedirectState] = useState({redirect: ''});
+
     const dispatch = useAppDispatch();
+
+    const storeCred = UseAppSelector(selectUsers).profile;
+
+    let userCred:Users = JSON.parse(storeCred);
 
     const SignUpValidate = async (event: { preventDefault: () => void; }) => { 
       event.preventDefault();
       
       dispatch(signUpAsync({username, password}));
+
+      setRedirectState({ redirect: '/shopping'});
     }
 
-    return (
+    if (redirectState.redirect && userCred.userId>0) {
+      return <Redirect to={redirectState.redirect}/>
+    } else {
+      return (
         <div className="container col-xl-10 col-xxl-8 px-4 py-5">
           <div className="row align-items-center g-lg-5 py-5">
             <div className="col-lg-7 text-justify text-lg-start" id="pageFrontContainer">
@@ -45,7 +59,7 @@ const SignUp:React.FC<unknown> = (props) => {
             </div>
           </div>
         </div>
-    )
+    )}
 }
 
 export default SignUp
