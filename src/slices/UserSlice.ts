@@ -4,12 +4,14 @@ import { RootState } from "../store/store";
 import { loginAsync, signUpAsync } from "../actions/UsersActions";
 
 export interface UserState{
-    profile: Users;
+    profile: string;
     status: 'idle' | 'loading' | 'failed';
 }
 
+// JSON.parse(user.toStorageString())
+
 const initialState: UserState = {
-    profile: new Users(0, "", "", "", "", ""),
+    profile: JSON.stringify(new Users(0, "", "", "", "", "")),
     status: 'idle',
 };
 
@@ -27,7 +29,7 @@ export const usersSlice = createSlice({
             })
             .addCase(signUpAsync.fulfilled, (state, action) =>{
                 state.status = 'idle';
-                state.profile = action.payload || initialState.profile;
+                state.profile = JSON.stringify(action.payload) || initialState.profile;
             })
             .addCase(signUpAsync.rejected, (state) => {
                 state.status = 'failed';
@@ -38,7 +40,7 @@ export const usersSlice = createSlice({
             })
             .addCase(loginAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
-                state.profile = action.payload || initialState.profile;
+                state.profile = JSON.stringify(action.payload) || initialState.profile;
             })
             .addCase(loginAsync.rejected, (state) => {
                 state.status = 'failed';

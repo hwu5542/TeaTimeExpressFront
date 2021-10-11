@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const ShoppingPage: React.FC = () => {
 
-  const productsList = UseAppSelector(selectProducts).products;
+  const productsList = JSON.parse(UseAppSelector(selectProducts).products);
 
   const dispatch = useAppDispatch();
 

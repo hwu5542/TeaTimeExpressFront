@@ -51,8 +51,8 @@ export const setInventory = (inventSet:Inventory) => {
 
 export const searchProductsAsync = createAsyncThunk(
     ProductsActionTypes.GET_PRODUCT,
-    async (productsId:number) => {
-        const product = await ApiSearchProducts(productsId);
+    async (productId:number) => {
+        const product = await ApiSearchProducts(productId);
         if (typeof product === 'object') return product;
     }
 )

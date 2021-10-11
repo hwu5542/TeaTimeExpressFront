@@ -12,23 +12,23 @@ const ProductPage: React.FC = () => {
     const [quantity, setQuantity] = useState(1);
     const [inputRef] = useState(useRef<HTMLInputElement>(null));
 
-    const product = UseAppSelector(selectProducts).product;
+    const product = JSON.parse(UseAppSelector(selectProducts).product);
 
     const dispatch = useAppDispatch();
 
     const params: any = useParams();
-    const productId = Number.parseInt(params.productid);
+    const productId = Number.parseInt(params.productId);
 
     useEffect(() => {
         dispatch(searchProductsAsync(productId))
-    }, [dispatch]);
+    }, [dispatch, productId]);
 
     let index = 0;
 
 
     const getProductPic = () => (
-        product.productImage.split(';').map((image) => (
-            <div className={"carousel-item" + (index > 0 ? "" : " active")}>
+        product.productImage.split(';').map((image:any) => (
+            <div className={"carousel-item" + (index > 0 ? "" : " active")} key={"image" + index}>
                 <img src={`${process.env.PUBLIC_URL}/assets/images/${image}.jpg`} alt={numberLiteral[index++] + " slide"} className="img-fluid" />
             </div>
         )))

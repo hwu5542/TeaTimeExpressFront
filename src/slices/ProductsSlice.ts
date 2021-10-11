@@ -5,16 +5,16 @@ import { Products } from "../models/Products"
 import { RootState } from "../store/store"
 
 export interface ProductsState {
-    product: Products;
-    products: Products[];
-    inventory: Inventory;
+    product: string;
+    products: string;
+    inventory: string;
     status: 'idle' | 'loading' | 'failed';
 }
 
 const initialState:ProductsState = {
-    product: new Products(0, '', '', 'teaImage', 'teaListImage', 0, 0, 0, 0),
-    products: [new Products(0, '', '', 'teaImage', 'teaListImage', 0, 0, 0, 0)],
-    inventory: new Inventory(0, 0),
+    product: JSON.stringify(new Products(0, '', '', 'teaImage', 'teaListImage', 0, 0, 0, 0)),
+    products: JSON.stringify([new Products(0, '', '', 'teaImage', 'teaListImage', 0, 0, 0, 0)]),
+    inventory: JSON.stringify(new Inventory(0, 0)),
     status: 'idle'
 }
 
@@ -22,9 +22,9 @@ const productsSlices = createSlice({
     name: 'products',
     initialState,
     reducers:{
-        newProductAction: (state) => {state.product = newProduct(state.product).payload},
-        addInventoryAction: (state) => {state.product.productStockAmt += addInventory(state.inventory).payload.change_amount},
-        setInventoryAction: (state) => {state.product.productStockAmt = setInventory(state.inventory).payload.change_amount}
+        newProductAction: (state) => {state.product = JSON.stringify(newProduct(JSON.parse(state.product)).payload)},
+        addInventoryAction: (state) => {state.product = JSON.stringify(JSON.parse(state.product).productStockAmt + addInventory(JSON.parse(state.inventory)).payload.change_amount)},
+        setInventoryAction: (state) => {state.product = JSON.stringify(JSON.parse(state.product).productStockAmt + setInventory(JSON.parse(state.inventory)).payload.change_amount)}
     },
     extraReducers:(builder) => {
         builder
@@ -32,7 +32,7 @@ const productsSlices = createSlice({
                 state.status = 'loading';
             })
             .addCase(searchProductsAsync.fulfilled, (state, action) => {
-                state.product = action.payload || initialState.product;
+                state.product = JSON.stringify(action.payload) || initialState.product;
                 state.status = 'idle';
             })
             .addCase(searchProductsAsync.rejected, (state) => {
@@ -43,7 +43,7 @@ const productsSlices = createSlice({
                 state.status = 'loading';
             })
             .addCase(listProductsAsync.fulfilled, (state, action) => {
-                state.products = action.payload || initialState.products;
+                state.products = JSON.stringify(action.payload) || initialState.products;
                 state.status = 'idle';
             })
             .addCase(listProductsAsync.rejected, (state) => {

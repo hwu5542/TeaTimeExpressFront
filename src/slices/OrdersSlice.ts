@@ -4,14 +4,14 @@ import { Orders } from "../models/Orders";
 import { RootState } from "../store/store";
 
 export interface ordersState {
-    order: Orders;
-    orders: Orders[];
+    order: string;
+    orders: string;
     status: 'idle' | 'loading' | 'failed';
 }
 
 const initialState:ordersState = {
-    order : new Orders(0, 0, 0, 0, "", ""),
-    orders : [],
+    order : JSON.stringify(new Orders(0, 0, 0, 0, "", "")),
+    orders : JSON.stringify([new Orders(0, 0, 0, 0, "", "")]),
     status : 'idle'
 }
 
@@ -19,7 +19,7 @@ const ordersSlice = createSlice({
     name:'orders',
     initialState,
     reducers:{
-        newOrderAction:(state) => {state.order = newOrder(state.order).payload}
+        newOrderAction:(state) => {state.order = JSON.stringify(newOrder(JSON.parse(state.order)).payload)}
         // cancelOrderAction:(state) => {state.orders = cancelOrder(state.orders.order_number).payload}
         // deleteOrderAction:(state) => {state.orders = deleteOrder(state.orders)}
     },
@@ -30,7 +30,7 @@ const ordersSlice = createSlice({
                 state.status = 'loading'
             })
             .addCase(searchOrdersAsync.fulfilled, (state, action) => {
-                state.order = action.payload || initialState.order;
+                state.order = JSON.stringify(action.payload) || initialState.order;
                 state.status = 'idle';
             })
             .addCase(searchOrdersAsync.rejected, (state) => {
@@ -41,7 +41,7 @@ const ordersSlice = createSlice({
                 state.status = 'loading'
             })
             .addCase(listOrdersAsync.fulfilled, (state, action) => {
-                state.orders = action.payload || initialState.orders;
+                state.orders = JSON.stringify(action.payload) || initialState.orders;
                 state.status = 'idle';
             })
             .addCase(listOrdersAsync.rejected, (state) => {
