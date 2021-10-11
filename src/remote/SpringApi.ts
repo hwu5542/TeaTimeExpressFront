@@ -23,13 +23,13 @@ export const ApiValidateUsers = async(credential:UserCredential):Promise<Users|f
     return false;
 }
 
-export const ApiSearchProducts = async(productId:number):Promise<Products|false> => {
-    const response = await SpringClient.get<Products>(ProductsActionTypes.GET_PRODUCT + '/' + productId);
+// export const ApiSearchProducts = async(productId:number):Promise<Products|false> => {
+//     const response = await SpringClient.get<Products>(ProductsActionTypes.GET_PRODUCT + '/' + productId);
 
-    if (response.status === 200) return response.data;
+//     if (response.status === 200) return response.data;
 
-    return false;
-}
+//     return false;
+// }
 
 export const ApiListProducts = async():Promise<Products[]|false> => {
     const reponse = await SpringClient.get<Products[]>(ProductsActionTypes.GET_PRODUCT_LIST);

@@ -1,14 +1,22 @@
 import React from "react";
 import { useAppDispatch, UseAppSelector } from '../store/hook';
 import { selectProducts } from '../slices/ProductsSlice';
-import { listProductsAsync, searchProductsAsync } from '../actions/ProductsActions';
+import { listProductsAsync } from '../actions/ProductsActions';
 import { Products } from '../models/Products';
 import { useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 const ShoppingPage: React.FC = () => {
 
-  const productsList = JSON.parse(UseAppSelector(selectProducts).products);
+  const productsListStr:string[] = UseAppSelector(selectProducts).products;
+
+  let productsList:Products[] = new Array(productsListStr.length);
+
+  let index = 0;
+
+  for (let productStr of productsListStr) {
+    productsList[index++] = JSON.parse(productStr);
+  }
 
   const dispatch = useAppDispatch();
 

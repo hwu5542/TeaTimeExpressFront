@@ -1,37 +1,28 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { Inventory } from "../models/Inventory"
 import { Products } from "../models/Products"
-import { ApiListProducts, ApiSearchProducts } from "../remote/SpringApi"
+import { ApiListProducts } from "../remote/SpringApi"
 
 export enum ProductsActionTypes {
     NEW_PRODUCT = 'products/new',
-    GET_PRODUCT = 'products/get',
+    SET_PRODUCT = 'products/set',
+    // GET_PRODUCT = 'products/get',
     GET_PRODUCT_LIST = 'products/getAll',
     ADD_INVENT = 'products/addinvent',
     SET_INVENT = 'products/setinvent'
 }
 
-export type ProductsActionNew = {
-    type:ProductsActionTypes.NEW_PRODUCT,
-    payload?:Products
-}
-
-export type ProductsActionAddInvent = {
-    type:ProductsActionTypes.ADD_INVENT,
-    payload?:Inventory
-}
-
-export type ProductsActionSetInvent = {
-    type:ProductsActionTypes.SET_INVENT,
-    payload?:Inventory
-}
-
-export type ProductsAction = ProductsActionNew | ProductsActionAddInvent | ProductsActionSetInvent;
-
 export const newProduct = (newProduct:Products) => {
     return {
         type:ProductsActionTypes.NEW_PRODUCT,
         payload:newProduct
+    }
+}
+
+export const setProduct = (allProducts:string[], productId:number) => {
+    return {
+        type:ProductsActionTypes.SET_PRODUCT,
+        payload:allProducts[(productId>0? productId-1: 0)]
     }
 }
 
@@ -49,13 +40,13 @@ export const setInventory = (inventSet:Inventory) => {
     }
 }
 
-export const searchProductsAsync = createAsyncThunk(
-    ProductsActionTypes.GET_PRODUCT,
-    async (productId:number) => {
-        const product = await ApiSearchProducts(productId);
-        if (typeof product === 'object') return product;
-    }
-)
+// export const searchProductsAsync = createAsyncThunk(
+//     ProductsActionTypes.GET_PRODUCT,
+//     async (productId:number) => {
+//         const product = await ApiSearchProducts(productId);
+//         if (typeof product === 'object') return product;
+//     }
+// )
 
 export const listProductsAsync = createAsyncThunk(
     ProductsActionTypes.GET_PRODUCT_LIST,

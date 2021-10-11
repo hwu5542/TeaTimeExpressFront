@@ -1,27 +1,27 @@
 import React, { useState, useRef } from "react";
 import { useEffect } from "react";
-import { searchProductsAsync } from "../actions/ProductsActions";
-import { selectProducts } from "../slices/ProductsSlice";
+import { selectProducts, setProductAction } from "../slices/ProductsSlice";
 import { useAppDispatch, UseAppSelector } from "../store/hook";
 import { useParams } from "react-router-dom";
+import { Products } from "../models/Products";
 
 const ProductPage: React.FC = () => {
-
     const numberLiteral = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh', 'Eighth', 'Ninth', 'Tenth'];
 
     const [quantity, setQuantity] = useState(1);
     const [inputRef] = useState(useRef<HTMLInputElement>(null));
 
-    const product = JSON.parse(UseAppSelector(selectProducts).product);
-
     const dispatch = useAppDispatch();
-
     const params: any = useParams();
     const productId = Number.parseInt(params.productId);
 
     useEffect(() => {
-        dispatch(searchProductsAsync(productId))
+        dispatch(setProductAction(productId))
     }, [dispatch, productId]);
+
+    const productStr:string = UseAppSelector(selectProducts).product;
+
+    const product:Products = JSON.parse(productStr);;
 
     let index = 0;
 
