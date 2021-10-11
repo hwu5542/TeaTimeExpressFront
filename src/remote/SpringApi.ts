@@ -10,7 +10,7 @@ import { UserCredential } from "../models/UserCredential";
 export const ApiSignUpUsers = async(credential:UserCredential):Promise<Users|false> => {
     const response = await SpringClient.post<Users>(UsersActionTypes.USERS_SIGNUP, credential);
 
-    if (response.status === 200) return response.data;
+    if (response.status === 201) return response.data;
 
     return false;
 }
