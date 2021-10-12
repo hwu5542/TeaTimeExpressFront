@@ -13,7 +13,11 @@ const Navbar:React.FC<unknown> = (props) => {
 
             <div id="navbarCollapse" className="collapse navbar-collapse justify-content-start">
                 <div className='navbar-nav'>
-                    <NavLink className='nav-item nav-link' to='/Shopping'>Shopping</NavLink>
+                    <NavLink className='nav-item nav-link' to='/shopping'>Shopping</NavLink>
+                </div>
+
+                <div className='navbar-nav'>
+                    <NavLink className='nav-item nav-link' to='/profile'>Profile</NavLink>
                 </div>
 
                 <UserLogin/>

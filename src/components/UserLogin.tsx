@@ -33,11 +33,10 @@ export const UserLogin: React.FC<unknown> = (props) => {
     } else if (userCred.userId > 0) {
         return (
             <div className="navbar-nav ml-auto nav-item dropdown text-end">
-                <a className="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <a className="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle" />
                 </a>
-                <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                    <li><a className="dropdown-item" href="#">New project...</a></li>
+                <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser">
                     <li><a className="dropdown-item" href="#">Settings</a></li>
                     <li><a className="dropdown-item" href="#">Profile</a></li>
                     <li><hr className="dropdown-divider" /></li>

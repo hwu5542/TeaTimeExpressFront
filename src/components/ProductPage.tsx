@@ -4,6 +4,7 @@ import { selectProducts, setProductAction } from "../slices/ProductsSlice";
 import { useAppDispatch, UseAppSelector } from "../store/hook";
 import { useParams } from "react-router-dom";
 import { Products } from "../models/Products";
+import '../css/ProductPage.css';
 
 const ProductPage: React.FC = () => {
     const numberLiteral = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh', 'Eighth', 'Ninth', 'Tenth'];
