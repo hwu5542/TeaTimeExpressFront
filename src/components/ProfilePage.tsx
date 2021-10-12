@@ -2,7 +2,7 @@ import React from "react"
 import '../css/ProfilePage.css'
 
 const ProfilePage: React.FC = () => {
-    const address = () => {
+    const address = (index:number) => {
         return (
             <div className="flex-shrink-0 p-3 bg-white">
                 <ul className="list-unstyled ps-0">
@@ -14,8 +14,8 @@ const ProfilePage: React.FC = () => {
                             <div className="col-md-12"><label className="labels">Address Line 1</label><input type="text" className="form-control" placeholder="enter address line 1" defaultValue={""} /></div>
                             <div className="col-md-12"><label className="labels">Address Line 2</label><input type="text" className="form-control" placeholder="enter address line 2" defaultValue={""} /></div>
                             <div className="col-md-12"><label className="labels">Postcode</label><input type="text" className="form-control" placeholder="enter address line 2" defaultValue={""} /></div>
-                            <div className="col-md-12"><label className="labels">State</label><input type="text" className="form-control" placeholder="enter address line 2" defaultValue={""} /></div>
-                            <div className="col-md-12"><label className="labels">Area</label><input type="text" className="form-control" placeholder="enter address line 2" defaultValue={""} /></div>
+                            <div className="col-md-12"><label className="labels">City</label><input type="text" className="form-control" placeholder="enter address line 2" defaultValue={""} /></div>
+                            <div className="col-md-12"><label className="labels">Apt / Suite</label><input type="text" className="form-control" placeholder="enter address line 2" defaultValue={""} /></div>
                             <div className="col-md-12"><label className="labels">Email ID</label><input type="text" className="form-control" placeholder="enter email id" defaultValue={""} /></div>
 
                             <div className="row mt-3">
@@ -27,6 +27,10 @@ const ProfilePage: React.FC = () => {
                 </ul>
             </div>
         )
+    }
+
+    const ListAddresses = () => {
+        address(1);
     }
 
     return (
@@ -54,14 +58,14 @@ const ProfilePage: React.FC = () => {
                         <div className="row mt-3">
                             <div className="col-md-12"><label className="labels">Mobile Number</label><input type="text" className="form-control" placeholder="enter phone number" defaultValue={""} /></div>
                         </div>
-                        {address()}
+                        {address(0)}
                         <div className="mt-5 text-center"><button className="btn btn-primary profile-button" type="button">Save Profile</button></div>
                     </div>
                 </div>
                 <div className="col-md-4">
                     <div className="p-3 py-5">
                         <div className="d-flex justify-content-between align-items-center experience"><span>Edit Shipping Address</span><span className="border px-3 p-1 add-experience"><i className="fa fa-plus"></i>&nbsp;Experience</span></div><br />
-                        {address()}
+                        {ListAddresses()}
                     </div>
                 </div>
             </div>
