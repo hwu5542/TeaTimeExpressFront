@@ -2,6 +2,33 @@ import React from "react"
 import '../css/ProfilePage.css'
 
 const ProfilePage: React.FC = () => {
+    const address = () => {
+        return (
+            <div className="flex-shrink-0 p-3 bg-white">
+                <ul className="list-unstyled ps-0">
+                    <li className="mb-1">
+                        <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                            <h5 className="mb-0" id="flashHover">Address</h5>
+                        </button>
+                        <div className="collapse" id="dashboard-collapse">
+                            <div className="col-md-12"><label className="labels">Address Line 1</label><input type="text" className="form-control" placeholder="enter address line 1" defaultValue={""} /></div>
+                            <div className="col-md-12"><label className="labels">Address Line 2</label><input type="text" className="form-control" placeholder="enter address line 2" defaultValue={""} /></div>
+                            <div className="col-md-12"><label className="labels">Postcode</label><input type="text" className="form-control" placeholder="enter address line 2" defaultValue={""} /></div>
+                            <div className="col-md-12"><label className="labels">State</label><input type="text" className="form-control" placeholder="enter address line 2" defaultValue={""} /></div>
+                            <div className="col-md-12"><label className="labels">Area</label><input type="text" className="form-control" placeholder="enter address line 2" defaultValue={""} /></div>
+                            <div className="col-md-12"><label className="labels">Email ID</label><input type="text" className="form-control" placeholder="enter email id" defaultValue={""} /></div>
+
+                            <div className="row mt-3">
+                                <div className="col-md-6"><label className="labels">Country</label><input type="text" className="form-control" placeholder="country" defaultValue={""} /></div>
+                                <div className="col-md-6"><label className="labels">State/Region</label><input type="text" className="form-control" defaultValue={""} placeholder="state" /></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        )
+    }
+
     return (
         <div className="container rounded bg-white mt-5 mb-5">
             <div className="row">
@@ -26,28 +53,15 @@ const ProfilePage: React.FC = () => {
                         </div>
                         <div className="row mt-3">
                             <div className="col-md-12"><label className="labels">Mobile Number</label><input type="text" className="form-control" placeholder="enter phone number" defaultValue={""} /></div>
-                            <div className="col-md-12"><label className="labels">Address Line 1</label><input type="text" className="form-control" placeholder="enter address line 1" defaultValue={""} /></div>
-                            <div className="col-md-12"><label className="labels">Address Line 2</label><input type="text" className="form-control" placeholder="enter address line 2" defaultValue={""} /></div>
-                            <div className="col-md-12"><label className="labels">Postcode</label><input type="text" className="form-control" placeholder="enter address line 2" defaultValue={""} /></div>
-                            <div className="col-md-12"><label className="labels">State</label><input type="text" className="form-control" placeholder="enter address line 2" defaultValue={""} /></div>
-                            <div className="col-md-12"><label className="labels">Area</label><input type="text" className="form-control" placeholder="enter address line 2" defaultValue={""} /></div>
-                            <div className="col-md-12"><label className="labels">Email ID</label><input type="text" className="form-control" placeholder="enter email id" defaultValue={""} /></div>
                         </div>
-                        <div className="row mt-3">
-                            <div className="col-md-6"><label className="labels">Country</label><input type="text" className="form-control" placeholder="country" defaultValue={""} /></div>
-                            <div className="col-md-6"><label className="labels">State/Region</label><input type="text" className="form-control" defaultValue={""} placeholder="state" /></div>
-                        </div>
+                        {address()}
                         <div className="mt-5 text-center"><button className="btn btn-primary profile-button" type="button">Save Profile</button></div>
                     </div>
                 </div>
                 <div className="col-md-4">
                     <div className="p-3 py-5">
                         <div className="d-flex justify-content-between align-items-center experience"><span>Edit Shipping Address</span><span className="border px-3 p-1 add-experience"><i className="fa fa-plus"></i>&nbsp;Experience</span></div><br />
-                        <div className="col-md-12"><label className="labels">Address Line 1</label><input type="text" className="form-control" placeholder="enter address line 1" defaultValue={""} /></div>
-                        <div className="col-md-12"><label className="labels">Address Line 2</label><input type="text" className="form-control" placeholder="enter address line 2" defaultValue={""} /></div>
-                        <div className="col-md-12"><label className="labels">Postcode</label><input type="text" className="form-control" placeholder="enter address line 2" defaultValue={""} /></div>
-                        <div className="col-md-12"><label className="labels">State</label><input type="text" className="form-control" placeholder="enter address line 2" defaultValue={""} /></div>
-                        <div className="col-md-12"><label className="labels">Area</label><input type="text" className="form-control" placeholder="enter address line 2" defaultValue={""} /></div>
+                        {address()}
                     </div>
                 </div>
             </div>

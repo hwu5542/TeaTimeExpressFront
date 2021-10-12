@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 
 const ShoppingPage: React.FC = () => {
 
-  const productsListStr:string[] = UseAppSelector(selectProducts).products;
+  const productsListStr: string[] = UseAppSelector(selectProducts).products;
 
-  let productsList:Products[] = new Array(productsListStr.length);
+  let productsList: Products[] = new Array(productsListStr.length);
 
   let index = 0;
 
@@ -29,7 +29,7 @@ const ShoppingPage: React.FC = () => {
 
   const ShoppingPageCards = (product: Products) => (
     <div className="col" key={product.productId}>
-      <Link className='nav-item nav-link' to={'/products/'+product.productId}>
+      <Link className='nav-item nav-link' to={'/products/' + product.productId}>
         <div className="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style={{ backgroundSize: 'cover', backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/${product.productListImage}.jpg)`, backgroundRepeat: 'no-repeat' }}>
           <div className="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
             <h2 className="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">{product.productName}</h2>

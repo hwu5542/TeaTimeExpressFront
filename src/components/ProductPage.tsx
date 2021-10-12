@@ -20,15 +20,15 @@ const ProductPage: React.FC = () => {
         dispatch(setProductAction(productId))
     }, [dispatch, productId]);
 
-    const productStr:string = UseAppSelector(selectProducts).product;
+    const productStr: string = UseAppSelector(selectProducts).product;
 
-    const product:Products = JSON.parse(productStr);;
+    const product: Products = JSON.parse(productStr);;
 
     let index = 0;
 
 
     const getProductPic = () => (
-        product.productImage.split(';').map((image:any) => (
+        product.productImage.split(';').map((image: any) => (
             <div className={"carousel-item" + (index > 0 ? "" : " active")} key={"image" + index}>
                 <img src={`${process.env.PUBLIC_URL}/assets/images/${image}.jpg`} alt={numberLiteral[index++] + " slide"} className="img-fluid" />
             </div>
@@ -75,34 +75,34 @@ const ProductPage: React.FC = () => {
                             </h3>
 
                             <div className="flex-shrink-0 p-3 bg-white">
-                            <ul className="list-unstyled ps-0">
-                                <li className="mb-1">
-                                    <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
-                                        <h5 className="mb-0" id="flashHover">Description</h5>
-                                    </button>
-                                    <div className="collapse show" id="home-collapse">
-                                        <p>{product.productDescription}</p>
-                                        <p>Stock Remaining Amount: {product.productStockAmt - product.productOrderAmt}</p>
-                                    </div>
-                                </li>
-                                <li className="mb-1">
-                                    <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                                        <h5 className="mb-0" id="flashHover">Detail</h5>
-                                    </button>
-                                    <div className="collapse" id="dashboard-collapse">
-                                    <p>Add detail here: </p>
-                                    </div>
-                                </li>
-                                <li className="mb-1">
-                                    <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-                                        <h5 className="mb-0" id="flashHover">Shipping</h5>
-                                    </button>
-                                    <div className="collapse" id="orders-collapse">
-                                        <p>Product Weight: {product.productWeight}</p>
-                                    </div>
-                                </li>
-                                <li className="border-top my-3"></li>
-                            </ul>
+                                <ul className="list-unstyled ps-0">
+                                    <li className="mb-1">
+                                        <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+                                            <h5 className="mb-0" id="flashHover">Description</h5>
+                                        </button>
+                                        <div className="collapse show" id="home-collapse">
+                                            <p>{product.productDescription}</p>
+                                            <p>Stock Remaining Amount: {product.productStockAmt - product.productOrderAmt}</p>
+                                        </div>
+                                    </li>
+                                    <li className="mb-1">
+                                        <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                                            <h5 className="mb-0" id="flashHover">Detail</h5>
+                                        </button>
+                                        <div className="collapse" id="dashboard-collapse">
+                                            <p>Add detail here: </p>
+                                        </div>
+                                    </li>
+                                    <li className="mb-1">
+                                        <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+                                            <h5 className="mb-0" id="flashHover">Shipping</h5>
+                                        </button>
+                                        <div className="collapse" id="orders-collapse">
+                                            <p>Product Weight: {product.productWeight}</p>
+                                        </div>
+                                    </li>
+                                    <li className="border-top my-3"></li>
+                                </ul>
                             </div>
 
 
