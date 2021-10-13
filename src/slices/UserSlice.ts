@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Users } from "../models/Users";
 import { RootState } from "../store/store";
-import { loginAsync, signUpAsync } from "../actions/UsersActions";
+import { loginAsync, signUpAsync, updateProfileAsync } from "../actions/UsersActions";
 import { Addresses } from "../models/Addresses";
 
 export interface UserState{
@@ -46,6 +46,17 @@ export const usersSlice = createSlice({
                 state.profile = JSON.stringify(action.payload) || initialState.profile;
             })
             .addCase(loginAsync.rejected, (state) => {
+                state.status = 'failed';
+            })
+
+            .addCase(updateProfileAsync.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(updateProfileAsync.fulfilled, (state, action) => {
+                state.status = 'idle';
+                state.profile = JSON.stringify(action.payload) || initialState.profile;
+            })
+            .addCase(updateProfileAsync.rejected, (state) => {
                 state.status = 'failed';
             })
     },

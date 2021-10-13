@@ -23,6 +23,14 @@ export const ApiValidateUsers = async(credential:UserCredential):Promise<Users|f
     return false;
 }
 
+export const ApiUpdateUsers = async(newProfile:Users):Promise<Users|false> => {
+    const response = await SpringClient.post<Users>(UsersActionTypes.USERS_UPDATE, newProfile);
+
+    if (response.status === 200) return response.data;
+
+    return false;
+}
+
 // export const ApiSearchProducts = async(productId:number):Promise<Products|false> => {
 //     const response = await SpringClient.get<Products>(ProductsActionTypes.GET_PRODUCT + '/' + productId);
 
