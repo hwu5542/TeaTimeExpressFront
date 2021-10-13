@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { loginAsync } from "../actions/UsersActions";
 import { Users } from "../models/Users";
 import { selectUsers } from "../slices/UserSlice";
@@ -37,10 +37,10 @@ export const UserLogin: React.FC<unknown> = (props) => {
                     <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle" />
                 </a>
                 <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser">
-                    <li><a className="dropdown-item" href="#">Settings</a></li>
-                    <li><a className="dropdown-item" href="#">Profile</a></li>
+                    <li><a className="dropdown-item">Settings</a></li>
+                    <li><a className="dropdown-item" ><Link className='nav-item nav-link' to='/profile'>Profile</Link></a></li>
                     <li><hr className="dropdown-divider" /></li>
-                    <li><a className="dropdown-item" href="#">Sign out</a></li>
+                    <li><a className="dropdown-item">Sign out</a></li>
                 </ul>
             </div>
         )

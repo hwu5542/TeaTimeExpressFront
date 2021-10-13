@@ -16,10 +16,6 @@ const Navbar:React.FC<unknown> = (props) => {
                     <NavLink className='nav-item nav-link' to='/shopping'>Shopping</NavLink>
                 </div>
 
-                <div className='navbar-nav'>
-                    <NavLink className='nav-item nav-link' to='/profile'>Profile</NavLink>
-                </div>
-
                 <UserLogin/>
             </div>
 

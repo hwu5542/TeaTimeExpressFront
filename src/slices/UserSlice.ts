@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Users } from "../models/Users";
 import { RootState } from "../store/store";
 import { loginAsync, signUpAsync } from "../actions/UsersActions";
+import { Addresses } from "../models/Addresses";
 
 export interface UserState{
     profile: string;
@@ -9,9 +10,11 @@ export interface UserState{
 }
 
 // JSON.parse(user.toStorageString())
+const emptyAddress = new Addresses(0, "", "", "", "", "", "", "");
+const emptyUser = new Users(0, "", "", "", "", "", "", "", emptyAddress, [emptyAddress])
 
 const initialState: UserState = {
-    profile: JSON.stringify(new Users(0, "", "", "", "", "")),
+    profile: JSON.stringify(emptyUser),
     status: 'idle',
 };
 
