@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { updateProfileAsync } from "../actions/UsersActions"
 import '../css/ProfilePage.css'
 import { Addresses } from "../models/Addresses"
@@ -28,7 +28,7 @@ const ProfilePage: React.FC = () => {
                             <h5 className="mb-0" id="flashHover">{"Address Start With" + addr.addressLineOne}</h5>
                         </button>
                         <div className="collapse" id={'addr' + index + '-collapse'}>
-                            <div className="col-md-12"><label className="labels">Address Line 1</label><input type="text" className="form-control" defaultValue={addr.addressLineOne} onChange={e=>{if (index<0) {userProfile.userBillAddress.addressLineOne=e.target.value} else {userProfile.userMailAddress[index].addressLineOne=e.target.value}}}/></div>
+                            <div className="col-md-12"><label className="labels">Address Line 1</label><input type="text" className="form-control" defaultValue={addr.addressLineOne} onChange={e=>{if (index<0) {e.target.value} else {userProfile.userMailAddress[index].addressLineOne=e.target.value}}}/></div>
                             <div className="col-md-12"><label className="labels">Address Line 2</label><input type="text" className="form-control" defaultValue={addr.addressLineTwo} onChange={e=>{if (index<0) {userProfile.userBillAddress.addressLineTwo=e.target.value} else {userProfile.userMailAddress[index].addressLineTwo=e.target.value}}} /></div>
                             <div className="col-md-12"><label className="labels">Postcode</label><input type="text" className="form-control" defaultValue={addr.addressPostcode} onChange={e=>{if (index<0) {userProfile.userBillAddress.addressPostcode=e.target.value} else {userProfile.userMailAddress[index].addressPostcode=e.target.value}}} /></div>
                             <div className="col-md-12"><label className="labels">City</label><input type="text" className="form-control" defaultValue={addr.addressCity} onChange={e=>{if (index<0) {userProfile.userBillAddress.addressCity=e.target.value} else {userProfile.userMailAddress[index].addressCity=e.target.value}}} /></div>

@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Users } from "../models/Users";
 import { RootState } from "../store/store";
-import { loginAsync, signUpAsync, updateProfileAsync } from "../actions/UsersActions";
+import { AddressAction, loginAsync, setBillingAddress, setMaillingAddress, signUpAsync, updateProfileAsync } from "../actions/UsersActions";
 import { Addresses } from "../models/Addresses";
 
 export interface UserState{
@@ -22,7 +22,9 @@ export const usersSlice = createSlice({
     name: 'users',
     initialState,
     reducers: {
-        logoutAction: (state) => {state = initialState;}
+        logoutAction: (state) => {state = initialState;},
+        setMaillingAddressAction: (state, action:PayloadAction<AddressAction>) => {state.profile = setMaillingAddress(state.profile, action.payload).payload},
+        setBillingAddressAction: (state, action:PayloadAction<AddressAction>) => {state.profile = setBillingAddress(state.profile, action.payload).payload}
     },
 
     extraReducers: (builder) => {
@@ -62,7 +64,7 @@ export const usersSlice = createSlice({
     },
 })
 
-export const { logoutAction } = usersSlice.actions;
+export const { logoutAction, setBillingAddressAction, setMaillingAddressAction } = usersSlice.actions;
 
 export const selectUsers = (state: RootState) => state.users;
 
