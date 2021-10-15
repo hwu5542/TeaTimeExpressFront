@@ -20,7 +20,7 @@ export enum AddressActionTypes {
 }
 export type AddressAction = {
     type:AddressActionTypes,
-    index?:number,
+    index:string,
     payload:string
 }
 
@@ -28,25 +28,25 @@ export const setMaillingAddress = (oldProfileStr:string, changingItem:AddressAct
     let profile:Users = JSON.parse(oldProfileStr);
     switch (changingItem.type) {
         case AddressActionTypes.FIRST:
-            profile.userMailAddress[changingItem.index||0].addressLineOne = changingItem.payload;
+            profile.userMailAddress[Number.parseInt(changingItem.index)].addressLineOne = changingItem.payload;
             break;
         case AddressActionTypes.SECOND:
-            profile.userMailAddress[changingItem.index||0].addressLineTwo = changingItem.payload;
+            profile.userMailAddress[Number.parseInt(changingItem.index)].addressLineTwo = changingItem.payload;
             break;
         case AddressActionTypes.POSTCODE:
-            profile.userMailAddress[changingItem.index||0].addressPostcode = changingItem.payload;
+            profile.userMailAddress[Number.parseInt(changingItem.index)].addressPostcode = changingItem.payload;
             break;
         case AddressActionTypes.APTSUITE:
-            profile.userMailAddress[changingItem.index||0].addressAptSuite = changingItem.payload;
+            profile.userMailAddress[Number.parseInt(changingItem.index)].addressAptSuite = changingItem.payload;
             break;
         case AddressActionTypes.CITY:
-            profile.userMailAddress[changingItem.index||0].addressCity = changingItem.payload;
+            profile.userMailAddress[Number.parseInt(changingItem.index)].addressCity = changingItem.payload;
             break;
         case AddressActionTypes.STATE:
-            profile.userMailAddress[changingItem.index||0].addressState = changingItem.payload;
+            profile.userMailAddress[Number.parseInt(changingItem.index)].addressState = changingItem.payload;
             break;
         case AddressActionTypes.COUNTY:
-            profile.userMailAddress[changingItem.index||0].addressCountry = changingItem.payload;
+            profile.userMailAddress[Number.parseInt(changingItem.index)].addressCountry = changingItem.payload;
             break;
     }
     return {

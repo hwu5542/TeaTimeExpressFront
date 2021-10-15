@@ -9,7 +9,6 @@ export interface UserState{
     status: 'idle' | 'loading' | 'failed';
 }
 
-// JSON.parse(user.toStorageString())
 const emptyAddress = new Addresses(0, "", "", "", "", "", "", "");
 const emptyUser = new Users(0, "", "", "", "", "", "", "", emptyAddress, [emptyAddress])
 
@@ -23,8 +22,15 @@ export const usersSlice = createSlice({
     initialState,
     reducers: {
         logoutAction: (state) => {state = initialState;},
-        setMaillingAddressAction: (state, action:PayloadAction<AddressAction>) => {state.profile = setMaillingAddress(state.profile, action.payload).payload},
-        setBillingAddressAction: (state, action:PayloadAction<AddressAction>) => {state.profile = setBillingAddress(state.profile, action.payload).payload}
+        setAddressAction: (state, action:PayloadAction<AddressAction>) => {
+            if (Number.parseInt(action.payload.index)<0) {state.profile = setBillingAddress(state.profile, action.payload).payload}
+            else {{state.profile = setMaillingAddress(state.profile, action.payload).payload}}
+        },
+        addAddressAction: (state) => {
+            let profile:Users = JSON.parse(state.profile);
+            profile.userMailAddress.push(emptyAddress);
+            state.profile = JSON.stringify(profile);
+        }
     },
 
     extraReducers: (builder) => {
@@ -64,7 +70,7 @@ export const usersSlice = createSlice({
     },
 })
 
-export const { logoutAction, setBillingAddressAction, setMaillingAddressAction } = usersSlice.actions;
+export const { logoutAction, setAddressAction, addAddressAction } = usersSlice.actions;
 
 export const selectUsers = (state: RootState) => state.users;
 

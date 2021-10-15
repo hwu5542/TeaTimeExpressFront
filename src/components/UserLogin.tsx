@@ -24,6 +24,8 @@ export const UserLogin: React.FC<unknown> = (props) => {
         setRedirectState({ redirect: '/shopping' });
     }
 
+    let index=0;
+
     if (redirectState.redirect && userCred.userId > 0) {
         setRedirectState({ redirect: '' });
 
@@ -37,10 +39,9 @@ export const UserLogin: React.FC<unknown> = (props) => {
                     <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle" />
                 </a>
                 <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser">
-                    <li><a className="dropdown-item">Settings</a></li>
-                    <li><a className="dropdown-item" ><Link className='nav-item nav-link' to='/profile'>Profile</Link></a></li>
-                    <li><hr className="dropdown-divider" /></li>
-                    <li><a className="dropdown-item">Sign out</a></li>
+                    <li><Link className="dropdown-item nav-item nav-link" to='/profile' key={index++}>Profile</Link></li>
+                    <li><hr className="dropdown-divider" key={index++}/></li>
+                    <li><a className="dropdown-item" key={index}>Sign out</a></li>
                 </ul>
             </div>
         )

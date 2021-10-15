@@ -1,18 +1,28 @@
-import React from "react"
-import { updateProfileAsync } from "../actions/UsersActions"
+import React, { useState } from "react"
+import { useEffect } from "react"
+import { AddressActionTypes, updateProfileAsync } from "../actions/UsersActions"
 import '../css/ProfilePage.css'
 import { Addresses } from "../models/Addresses"
 import { Users } from "../models/Users"
-import { selectUsers } from "../slices/UserSlice"
+import { addAddressAction, selectUsers, setAddressAction } from "../slices/UserSlice"
 import { useAppDispatch, UseAppSelector } from "../store/hook"
 
 const ProfilePage: React.FC = () => {
-    let userProfile:Users = JSON.parse(UseAppSelector(selectUsers).profile);
+
+    const storeProfile:Users = JSON.parse(UseAppSelector(selectUsers).profile)
+
+    const [userProfile, setUserProfile] = useState<Users>(storeProfile);
     
     const dispatch = useAppDispatch();
 
+    useEffect(
+        ()=>setUserProfile(storeProfile)
+    , [dispatch, storeProfile])
+
     const updateProfile = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
+
+        setUserProfile(storeProfile);
 
         dispatch(updateProfileAsync(userProfile));
     }
@@ -25,17 +35,17 @@ const ProfilePage: React.FC = () => {
                 <ul className="list-unstyled ps-0">
                     <li className="mb-1">
                         <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target={'#addr' + index + '-collapse'} aria-expanded="false">
-                            <h5 className="mb-0" id="flashHover">{"Address Start With" + addr.addressLineOne}</h5>
+                            <h5 className="mb-0" id="flashHover">{"Address Start With " + addr.addressLineOne}</h5>
                         </button>
                         <div className="collapse" id={'addr' + index + '-collapse'}>
-                            <div className="col-md-12"><label className="labels">Address Line 1</label><input type="text" className="form-control" defaultValue={addr.addressLineOne} onChange={e=>{if (index<0) {e.target.value} else {userProfile.userMailAddress[index].addressLineOne=e.target.value}}}/></div>
-                            <div className="col-md-12"><label className="labels">Address Line 2</label><input type="text" className="form-control" defaultValue={addr.addressLineTwo} onChange={e=>{if (index<0) {userProfile.userBillAddress.addressLineTwo=e.target.value} else {userProfile.userMailAddress[index].addressLineTwo=e.target.value}}} /></div>
-                            <div className="col-md-12"><label className="labels">Postcode</label><input type="text" className="form-control" defaultValue={addr.addressPostcode} onChange={e=>{if (index<0) {userProfile.userBillAddress.addressPostcode=e.target.value} else {userProfile.userMailAddress[index].addressPostcode=e.target.value}}} /></div>
-                            <div className="col-md-12"><label className="labels">City</label><input type="text" className="form-control" defaultValue={addr.addressCity} onChange={e=>{if (index<0) {userProfile.userBillAddress.addressCity=e.target.value} else {userProfile.userMailAddress[index].addressCity=e.target.value}}} /></div>
-                            <div className="col-md-12"><label className="labels">Apt / Suite</label><input type="text" className="form-control" defaultValue={addr.addressAptSuite} onChange={e=>{if (index<0) {userProfile.userBillAddress.addressAptSuite=e.target.value} else {userProfile.userMailAddress[index].addressAptSuite=e.target.value}}} /></div>
+                            <div className="col-md-12"><label className="labels">Address Line 1</label><input type="text" className="form-control" id={index.toString()} defaultValue={addr.addressLineOne} onChange={e=>{dispatch(setAddressAction({type:AddressActionTypes.FIRST, index:e.target.id, payload:e.target.value}))}}/></div>
+                            <div className="col-md-12"><label className="labels">Address Line 2</label><input type="text" className="form-control" id={index.toString()} defaultValue={addr.addressLineTwo} onChange={e=>{dispatch(setAddressAction({type:AddressActionTypes.SECOND, index:e.target.id, payload:e.target.value}))}} /></div>
+                            <div className="col-md-12"><label className="labels">Postcode</label><input type="text" className="form-control" id={index.toString()} defaultValue={addr.addressPostcode} onChange={e=>{dispatch(setAddressAction({type:AddressActionTypes.POSTCODE, index:e.target.id, payload:e.target.value}))}} /></div>
+                            <div className="col-md-12"><label className="labels">City</label><input type="text" className="form-control" id={index.toString()} defaultValue={addr.addressCity} onChange={e=>{dispatch(setAddressAction({type:AddressActionTypes.CITY, index:e.target.id, payload:e.target.value}))}} /></div>
+                            <div className="col-md-12"><label className="labels">Apt / Suite</label><input type="text" className="form-control" id={index.toString()} defaultValue={addr.addressAptSuite} onChange={e=>{dispatch(setAddressAction({type:AddressActionTypes.APTSUITE, index:e.target.id, payload:e.target.value}))}} /></div>
                             <div className="row mt-3">
-                                <div className="col-md-6"><label className="labels">Country</label><input type="text" className="form-control" defaultValue={addr.addressCountry} onChange={e=>{if (index<0) {userProfile.userBillAddress.addressCountry=e.target.value} else {userProfile.userMailAddress[index].addressCountry=e.target.value}}} /></div>
-                                <div className="col-md-6"><label className="labels">State/Region</label><input type="text" className="form-control" defaultValue={addr.addressState} onChange={e=>{if (index<0) {userProfile.userBillAddress.addressState=e.target.value} else {userProfile.userMailAddress[index].addressState=e.target.value}}} /></div>
+                                <div className="col-md-6"><label className="labels">Country</label><input type="text" className="form-control" id={index.toString()} defaultValue={addr.addressCountry} onChange={e=>{dispatch(setAddressAction({type:AddressActionTypes.COUNTY, index:e.target.id, payload:e.target.value}))}} /></div>
+                                <div className="col-md-6"><label className="labels">State/Region</label><input type="text" className="form-control" id={index.toString()} defaultValue={addr.addressState} onChange={e=>{dispatch(setAddressAction({type:AddressActionTypes.STATE, index:e.target.id, payload:e.target.value}))}} /></div>
                             </div>
                         </div>
                     </li>
@@ -83,7 +93,7 @@ const ProfilePage: React.FC = () => {
                 </div>
                 <div className="col-md-4">
                     <div className="p-3 py-5">
-                        <div className="d-flex justify-content-between align-items-center experience"><span>Edit Shipping Address</span><span className="border px-3 p-1 add-experience"><i className="fa fa-plus"></i>&nbsp;Address</span></div><br />
+                        <div className="d-flex justify-content-between align-items-center experience"><span>Edit Shipping Address</span><span className="border px-3 p-1 add-experience" onClick={()=>dispatch(addAddressAction())}><i className="fa fa-plus" ></i>&nbsp;Address</span></div><br />
                         {ListAddresses()}
                     </div>
                 </div>
