@@ -24,29 +24,29 @@ export type AddressAction = {
     payload:string
 }
 
-export const setMaillingAddress = (oldProfileStr:string, changingItem:AddressAction) => {
+export const setMaillingAddress = (oldProfileStr:string, changingItem:AddressAction, index:number) => {
     let profile:Users = JSON.parse(oldProfileStr);
     switch (changingItem.type) {
         case AddressActionTypes.FIRST:
-            profile.userMailAddress[Number.parseInt(changingItem.index)].addressLineOne = changingItem.payload;
+            profile.userMailAddress[index].addressLineOne = changingItem.payload;
             break;
         case AddressActionTypes.SECOND:
-            profile.userMailAddress[Number.parseInt(changingItem.index)].addressLineTwo = changingItem.payload;
+            profile.userMailAddress[index].addressLineTwo = changingItem.payload;
             break;
         case AddressActionTypes.POSTCODE:
-            profile.userMailAddress[Number.parseInt(changingItem.index)].addressPostcode = changingItem.payload;
+            profile.userMailAddress[index].addressPostcode = changingItem.payload;
             break;
         case AddressActionTypes.APTSUITE:
-            profile.userMailAddress[Number.parseInt(changingItem.index)].addressAptSuite = changingItem.payload;
+            profile.userMailAddress[index].addressAptSuite = changingItem.payload;
             break;
         case AddressActionTypes.CITY:
-            profile.userMailAddress[Number.parseInt(changingItem.index)].addressCity = changingItem.payload;
+            profile.userMailAddress[index].addressCity = changingItem.payload;
             break;
         case AddressActionTypes.STATE:
-            profile.userMailAddress[Number.parseInt(changingItem.index)].addressState = changingItem.payload;
+            profile.userMailAddress[index].addressState = changingItem.payload;
             break;
         case AddressActionTypes.COUNTY:
-            profile.userMailAddress[Number.parseInt(changingItem.index)].addressCountry = changingItem.payload;
+            profile.userMailAddress[index].addressCountry = changingItem.payload;
             break;
     }
     return {

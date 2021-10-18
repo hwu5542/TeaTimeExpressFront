@@ -23,8 +23,9 @@ export const usersSlice = createSlice({
     reducers: {
         logoutAction: (state) => {state = initialState;},
         setAddressAction: (state, action:PayloadAction<AddressAction>) => {
-            if (Number.parseInt(action.payload.index)<0) {state.profile = setBillingAddress(state.profile, action.payload).payload}
-            else {{state.profile = setMaillingAddress(state.profile, action.payload).payload}}
+            let index = Number.parseInt(action.payload.index.split('_')[1]);
+            if (index<0) {state.profile = setBillingAddress(state.profile, action.payload).payload}
+            else {state.profile = setMaillingAddress(state.profile, action.payload, index).payload}
         },
         addAddressAction: (state) => {
             let profile:Users = JSON.parse(state.profile);
