@@ -41,7 +41,7 @@ export const usersSlice = createSlice({
             })
             .addCase(signUpAsync.fulfilled, (state, action) =>{
                 state.status = 'idle';
-                state.profile = JSON.stringify(action.payload) || initialState.profile;
+                state.profile = JSON.stringify(action.payload);
             })
             .addCase(signUpAsync.rejected, (state) => {
                 state.status = 'failed';
@@ -52,7 +52,7 @@ export const usersSlice = createSlice({
             })
             .addCase(loginAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
-                state.profile = JSON.stringify(action.payload) || initialState.profile;
+                state.profile = JSON.stringify(action.payload);
             })
             .addCase(loginAsync.rejected, (state) => {
                 state.status = 'failed';
@@ -63,7 +63,7 @@ export const usersSlice = createSlice({
             })
             .addCase(updateProfileAsync.fulfilled, (state, action) => {
                 state.status = 'idle';
-                state.profile = JSON.stringify(action.payload) || initialState.profile;
+                state.profile = JSON.stringify(action.payload);
             })
             .addCase(updateProfileAsync.rejected, (state) => {
                 state.status = 'failed';
