@@ -26,7 +26,7 @@ const SignUp:React.FC<unknown> = (props) => {
       setRedirectState({ redirect: '/shopping'});
     }
 
-    if (redirectState.redirect && userCred.userId>0) {
+    if (redirectState.redirect && (userCred.userId>0)) {
       return <Redirect to={redirectState.redirect}/>
     } else {
       return (

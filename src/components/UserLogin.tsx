@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { loginAsync } from "../actions/UsersActions";
 import { Users } from "../models/Users";
-import { selectUsers } from "../slices/UserSlice";
+import { logoutAction, selectUsers } from "../slices/UserSlice";
 import { useAppDispatch, UseAppSelector } from "../store/hook";
 
 export const UserLogin: React.FC<unknown> = (props) => {
@@ -24,27 +24,32 @@ export const UserLogin: React.FC<unknown> = (props) => {
         setRedirectState({ redirect: '/shopping' });
     }
 
-    let index=0;
+    const profileDropdown = () => (
+        <div className="navbar-nav ml-auto nav-item dropdown text-end">
+            <a className="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src={userCred.userImage} alt="mdo" width="32" height="32" className="rounded-circle" />
+            </a>
+            <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser">
+                <li><Link className="dropdown-item nav-item nav-link" to='/profile' key={index++}>Profile</Link></li>
+                <li><hr className="dropdown-divider" key={index++} /></li>
+                <li><Link className="dropdown-item nav-item nav-link" to='/' onClick={()=>dispatch(logoutAction())} key={index}>Sign out</Link></li>
+            </ul>
+        </div>
+    )
 
-    if (redirectState.redirect && userCred.userId > 0) {
-        setRedirectState({ redirect: '' });
+    let index = 0;
 
+    if (redirectState.redirect && (userCred.userId > 0)) {
         return (
-            <Redirect to={redirectState.redirect} />
+            <Fragment>
+                {profileDropdown()}
+                <Redirect to={redirectState.redirect}/>
+            </Fragment>
         )
     } else if (userCred.userId > 0) {
-        return (
-            <div className="navbar-nav ml-auto nav-item dropdown text-end">
-                <a className="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle" />
-                </a>
-                <ul className="dropdown-menu text-small" aria-labelledby="dropdownUser">
-                    <li><Link className="dropdown-item nav-item nav-link" to='/profile' key={index++}>Profile</Link></li>
-                    <li><hr className="dropdown-divider" key={index++}/></li>
-                    <li><a className="dropdown-item" key={index}>Sign out</a></li>
-                </ul>
-            </div>
-        )
+        setRedirectState({ redirect: '' });
+
+        return (<Fragment>{profileDropdown()}</Fragment>)
     } else {
         return (
             <div className="navbar-nav ml-auto nav-item dropdown login-dropdown">
