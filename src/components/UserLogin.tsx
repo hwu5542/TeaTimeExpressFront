@@ -1,8 +1,9 @@
 import React, { Fragment, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { loginAsync } from "../actions/UsersActions";
+import { UserCredential } from "../models/UserCredential";
 import { Users } from "../models/Users";
-import { logoutAction, selectUsers } from "../slices/UserSlice";
+import { logoutAction, selectUser } from "../slices/UserSlice";
 import { useAppDispatch, UseAppSelector } from "../store/hook";
 
 export const UserLogin: React.FC<unknown> = (props) => {
@@ -12,14 +13,14 @@ export const UserLogin: React.FC<unknown> = (props) => {
 
     const [redirectState, setRedirectState] = useState({ redirect: '' });
 
-    const storeCred = UseAppSelector(selectUsers).profile;
+    const storeCred = UseAppSelector(selectUser);
 
     let userCred: Users = JSON.parse(storeCred);
 
     const loginValidate = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
 
-        dispatch(loginAsync({ username, password }));
+        dispatch(loginAsync(new UserCredential(username, password )));
 
         setRedirectState({ redirect: '/shopping' });
     }

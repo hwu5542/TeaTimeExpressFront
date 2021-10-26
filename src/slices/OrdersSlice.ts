@@ -52,6 +52,6 @@ const ordersSlice = createSlice({
 
 export const { newOrderAction } = ordersSlice.actions;
 
-export const selectOrders = (state:RootState) => (state.orders)
+export const selectOrders = (state:RootState) => state.orders.orders;
 
 export default ordersSlice.reducer;

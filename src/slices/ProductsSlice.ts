@@ -18,7 +18,7 @@ const initialState:ProductsState = {
     status: 'idle'
 }
 
-const productsSlices = createSlice({
+const productsSlice = createSlice({
     name: 'products',
     initialState,
     reducers:{
@@ -65,8 +65,10 @@ const productsSlices = createSlice({
     },
 })
 
-export const { newProductAction, setProductAction, addInventoryAction, setInventoryAction } = productsSlices.actions;
+export const { newProductAction, setProductAction, addInventoryAction, setInventoryAction } = productsSlice.actions;
 
-export const selectProducts = (state:RootState) => (state.products);
+export const selectProducts = (state:RootState) => state.products.products;
 
-export default productsSlices.reducer;
+export const selectProduct = (state:RootState) => state.products.product;
+
+export default productsSlice.reducer;

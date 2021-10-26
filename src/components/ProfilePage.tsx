@@ -4,12 +4,12 @@ import { AddressActionTypes, updateProfileAsync } from "../actions/UsersActions"
 import '../css/ProfilePage.css'
 import { Addresses } from "../models/Addresses"
 import { Users } from "../models/Users"
-import { addAddressAction, selectUsers, setAddressAction } from "../slices/UserSlice"
+import { addAddressAction, selectUser, setAddressAction } from "../slices/UserSlice"
 import { useAppDispatch, UseAppSelector } from "../store/hook"
 
 const ProfilePage: React.FC = () => {
 
-    const storeProfile:Users = JSON.parse(UseAppSelector(selectUsers).profile)
+    const storeProfile:Users = JSON.parse(UseAppSelector(selectUser));
 
     let userProfile:Users = storeProfile;
     

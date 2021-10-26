@@ -88,16 +88,16 @@ export const setBillingAddress = (oldProfileStr:string, changingItem:AddressActi
 
 export const loginAsync = createAsyncThunk(
     UsersActionTypes.USERS_LOGIN,
-    async(validatingCredential:{username: string, password:string}) => {
-        const usersCredential = await ApiValidateUsers(new UserCredential(validatingCredential.username, validatingCredential.password));
+    async(validatingCredential:UserCredential) => {
+        const usersCredential = await ApiValidateUsers(validatingCredential);
         if (typeof usersCredential === 'object') return usersCredential;
     }
 );
 
 export const signUpAsync = createAsyncThunk(
     UsersActionTypes.USERS_SIGNUP,
-    async (newCredential:{username: string, password:string}) => {
-        const usersCredential = await ApiSignUpUsers(new UserCredential(newCredential.username, newCredential.password));
+    async (newCredential:UserCredential) => {
+        const usersCredential = await ApiSignUpUsers(newCredential);
         if (typeof usersCredential === 'object') return usersCredential;
     }
 );

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useEffect } from "react";
-import { selectProducts, setProductAction } from "../slices/ProductsSlice";
+import { selectProduct, setProductAction } from "../slices/ProductsSlice";
 import { useAppDispatch, UseAppSelector } from "../store/hook";
 import { useParams } from "react-router-dom";
 import { Products } from "../models/Products";
@@ -20,7 +20,7 @@ const ProductPage: React.FC = () => {
         dispatch(setProductAction(productId))
     }, [dispatch, productId]);
 
-    const productStr: string = UseAppSelector(selectProducts).product;
+    const productStr: string = UseAppSelector(selectProduct);
 
     const product: Products = JSON.parse(productStr);;
 

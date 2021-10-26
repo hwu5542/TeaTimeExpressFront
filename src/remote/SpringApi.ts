@@ -6,6 +6,7 @@ import { Products } from "../models/Products";
 import { OrdersActionTypes } from "../actions/OrdersActions";
 import { Orders } from "../models/Orders";
 import { UserCredential } from "../models/UserCredential";
+import { AdminActionTypes } from "../actions/AdminActions";
 
 export const ApiSignUpUsers = async(credential:UserCredential):Promise<Users|false> => {
     const response = await SpringClient.post<Users>(UsersActionTypes.USERS_SIGNUP, credential);
@@ -25,6 +26,14 @@ export const ApiValidateUsers = async(credential:UserCredential):Promise<Users|f
 
 export const ApiUpdateUsers = async(newProfile:Users):Promise<Users|false> => {
     const response = await SpringClient.post<Users>(UsersActionTypes.USERS_UPDATE, newProfile);
+
+    if (response.status === 200) return response.data;
+
+    return false;
+}
+
+export const ApiListAccounts = async(credential:UserCredential):Promise<Users[]|false> => {
+    const response = await SpringClient.post<Users[]>(AdminActionTypes.ADMIN_ACCOUNTS_LIST, credential);
 
     if (response.status === 200) return response.data;
 

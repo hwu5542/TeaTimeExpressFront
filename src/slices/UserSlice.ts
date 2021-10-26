@@ -73,6 +73,6 @@ export const usersSlice = createSlice({
 
 export const { logoutAction, setAddressAction, addAddressAction } = usersSlice.actions;
 
-export const selectUsers = (state: RootState) => state.users;
+export const selectUser = (state: RootState) => state.users.profile;
 
 export default usersSlice.reducer;

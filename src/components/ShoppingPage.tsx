@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const ShoppingPage: React.FC = () => {
 
-  const productsListStr: string[] = UseAppSelector(selectProducts).products;
+  const productsListStr: string[] = UseAppSelector(selectProducts);
 
   let productsList: Products[] = new Array(productsListStr.length);
 
