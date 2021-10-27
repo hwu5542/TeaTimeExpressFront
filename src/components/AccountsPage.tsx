@@ -28,22 +28,23 @@ const AccountsPage: React.FC = () => {
         dispatch(listAccountsAsync(new UserCredential(adminAccount.userUsername, adminAccount.userPassword)))
     }, [dispatch]);
 
-    const AccountsTable = () => {
-        console.log(accountsList);
-        return (<div></div>)
-    }
+    // const AccountsTable = () => {
+    //     console.log(accountsList);
+    //     return (<div></div>)
+    // }
 
-    // const AccountsTable = () => (accountsList.map((account) => (
-    //     <tr className="table-active">
-    //         <td>{account.userUsername}</td>
-    //         <td>{account.userFirstName}</td>
-    //         <td>{account.userLastName}</td>
-    //         <td>{account.userEmail}</td>
-    //         <td>{account.userMailAddress}</td>
-    //         <td>{account.userPhoneNumber}</td>
-    //         <td>Button</td>
-    //     </tr>
-    // )))
+    const AccountsTable = () => (accountsList.map(AccountsTableItem))
+
+    const AccountsTableItem = (account:Users) => (
+        <tr>
+            <td>{account.userUsername}</td>
+            <td>{account.userFirstName}</td>
+            <td>{account.userLastName}</td>
+            <td>{account.userEmail}</td>
+            <td>{account.userPhoneNumber}</td>
+            <td>Button</td>
+        </tr>
+    )
 
     return (
         <table className="table">

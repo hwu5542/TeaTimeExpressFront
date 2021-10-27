@@ -21,7 +21,7 @@ const AppRoutes:React.FC<unknown> = (props) => {
 
             <Route exact path='/orders' component = {OrderPage}/>
 
-            <Route exact path='/admin' component = {InventoryPage}/>
+            <Route exact path='/inventory' component = {InventoryPage}/>
 
             <Route path='/products/:productid' render = {() => {return <ProductPage/>}}/>
         </Switch>

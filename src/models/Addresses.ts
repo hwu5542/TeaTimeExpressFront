@@ -10,3 +10,5 @@ export class Addresses {
         public addressState:string
     ) {}
 }
+
+export const emptyAddress = new Addresses(0, "", "", "", "", "", "", "");

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { addInventory, listProductsAsync, newProduct, setInventory, setProduct } from "../actions/ProductsActions"
 import { Inventory } from "../models/Inventory"
-import { Products } from "../models/Products"
+import { emptyProduct } from "../models/Products"
 import { RootState } from "../store/store"
 
 export interface ProductsState {
@@ -11,9 +11,10 @@ export interface ProductsState {
     status: 'idle' | 'loading' | 'failed';
 }
 
+
 const initialState:ProductsState = {
-    product: JSON.stringify(new Products(0, '', '', 'teaImage', 'teaListImage', 0, 0, 0, 0)),
-    products: [JSON.stringify(new Products(0, '', '', 'teaImage', 'teaListImage', 0, 0, 0, 0))],
+    product: JSON.stringify(emptyProduct),
+    products: [JSON.stringify(emptyProduct)],
     inventory: JSON.stringify(new Inventory(0, 0)),
     status: 'idle'
 }

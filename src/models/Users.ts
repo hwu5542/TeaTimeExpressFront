@@ -1,4 +1,4 @@
-import { Addresses } from "./Addresses";
+import { Addresses, emptyAddress } from "./Addresses";
 
 export class Users {
     constructor (
@@ -14,3 +14,5 @@ export class Users {
         public userMailAddress:Addresses[],
     ) {}
 }
+
+export const emptyUser = new Users(0, "", "", "", "", "", "", "", emptyAddress, [emptyAddress])

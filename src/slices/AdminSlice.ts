@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Users } from "../models/Users";
+import { emptyUser } from "../models/Users";
 import { RootState } from "../store/store";
-import { Addresses } from "../models/Addresses";
-import { Orders } from "../models/Orders";
+import { emptyOrder } from "../models/Orders";
 import { listAccountsAsync } from "../actions/AdminActions";
 
 export interface AdminState{
@@ -10,10 +9,6 @@ export interface AdminState{
     orders: string[];
     status: 'idle' | 'loading' | 'failed';
 }
-
-const emptyAddress = new Addresses(0, "", "", "", "", "", "", "");
-const emptyUser = new Users(0, "", "", "", "", "", "", "", emptyAddress, [emptyAddress]);
-const emptyOrder = new Orders(0,0,0,0,"","");
 
 const initialState: AdminState = {
     accounts: [JSON.stringify(emptyUser)],

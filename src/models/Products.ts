@@ -11,3 +11,5 @@ export class Products {
         public productOrderAmt:number,
     ) {}
 }
+
+export const emptyProduct = new Products(0, '', '', 'teaImage', 'teaListImage', 0, 0, 0, 0);

@@ -1,17 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { cancelOrder, deleteOrder, listOrdersAsync, newOrder, searchOrdersAsync } from "../actions/OrdersActions";
-import { Orders } from "../models/Orders";
+import { listOrdersAsync, newOrder, searchOrdersAsync } from "../actions/OrdersActions";
+import { emptyOrder, Orders } from "../models/Orders";
 import { RootState } from "../store/store";
 
 export interface ordersState {
     order: string;
-    orders: string;
+    orders: string[];
     status: 'idle' | 'loading' | 'failed';
 }
 
+
 const initialState:ordersState = {
-    order : JSON.stringify(new Orders(0, 0, 0, 0, "", "")),
-    orders : JSON.stringify([new Orders(0, 0, 0, 0, "", "")]),
+    order : JSON.stringify(emptyOrder),
+    orders : [JSON.stringify(emptyOrder)],
     status : 'idle'
 }
 
@@ -41,7 +42,19 @@ const ordersSlice = createSlice({
                 state.status = 'loading'
             })
             .addCase(listOrdersAsync.fulfilled, (state, action) => {
-                state.orders = JSON.stringify(action.payload) || initialState.orders;
+                if (action.payload) {
+                    let ordersList = new Array(action.payload.length)
+                    let index = 0;
+                    
+                    for (let order of action.payload) {
+                        ordersList[index++] = JSON.stringify(order);
+                    }
+
+                    state.orders = ordersList;
+                } else {
+                    state.orders = initialState.orders;
+                }
+
                 state.status = 'idle';
             })
             .addCase(listOrdersAsync.rejected, (state) => {

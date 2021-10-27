@@ -1,16 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Users } from "../models/Users";
+import { emptyUser, Users } from "../models/Users";
 import { RootState } from "../store/store";
 import { AddressAction, loginAsync, setBillingAddress, setMaillingAddress, signUpAsync, updateProfileAsync } from "../actions/UsersActions";
-import { Addresses } from "../models/Addresses";
+import { emptyAddress } from "../models/Addresses";
 
 export interface UserState{
     profile: string;
     status: 'idle' | 'loading' | 'failed';
 }
 
-const emptyAddress = new Addresses(0, "", "", "", "", "", "", "");
-const emptyUser = new Users(0, "", "", "", "", "", "", "", emptyAddress, [emptyAddress])
 
 const initialState: UserState = {
     profile: JSON.stringify(emptyUser),
