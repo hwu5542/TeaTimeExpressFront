@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom"
 import AccountsPage from "../components/AccountsPage";
+import CartPage from "../components/CartPage";
 import InventoryPage from "../components/InventoryPage";
 import OrderPage from "../components/OrderPage";
 import ProductPage from "../components/ProductPage";
@@ -22,6 +23,8 @@ const AppRoutes:React.FC<unknown> = (props) => {
             <Route exact path='/orders' component = {OrderPage}/>
 
             <Route exact path='/inventory' component = {InventoryPage}/>
+
+            <Route exact path='/cart' component = {CartPage}/>
 
             <Route path='/products/:productid' render = {() => {return <ProductPage/>}}/>
         </Switch>
