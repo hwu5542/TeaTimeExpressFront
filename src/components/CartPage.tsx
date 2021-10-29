@@ -5,9 +5,24 @@ import { Users } from "../models/Users";
 import { addAddressAction, selectUser, setAddressAction } from "../slices/UserSlice";
 import { useAppDispatch, UseAppSelector } from "../store/hook";
 import '../css/CartPage.css'
+import { Cart } from "../models/Cart";
+import { selectCart } from "../slices/OrdersSlice";
 
 const CartPage: React.FC = () => {
     const storeProfile: Users = JSON.parse(UseAppSelector(selectUser));
+
+    const cartStr: string[] = UseAppSelector(selectCart);
+
+    let cart: Cart[] = new Array(cartStr.length);
+
+    let index = 0;
+
+    let cartTotal = 0;
+
+    for (let item of cartStr) {
+        cart[index] = JSON.parse(item);
+        cartTotal += cart[index++].orderPrice;
+    }
 
     let userProfile: Users = storeProfile;
 
@@ -25,7 +40,7 @@ const CartPage: React.FC = () => {
         dispatch(updateProfileAsync(userProfile));
     }
 
-    let index = -1;
+    index = -1;
 
     const address = (addr: Addresses) => (
         (
@@ -50,9 +65,9 @@ const CartPage: React.FC = () => {
                     </li>
                 </ul>
 
-                
+
                 <label className="btn btn-secondary">
-                    <input type="radio" name="options"/> Mail To This Address
+                    <input type="radio" name="mailling-address" onClick={() => { }} /> Mail To This Address
                 </label>
                 <script>{index++}</script>
             </div>
@@ -61,6 +76,25 @@ const CartPage: React.FC = () => {
 
     const ListAddresses = () => (userProfile.userMailAddress.length > 1 ? userProfile.userMailAddress.map(address) : <p>Add more mailling addresses here</p>)
 
+    const shoppingCartItems = (cartItem:Cart) => (
+        <li className="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+                <h6 className="my-0">{cartItem.productName}</h6>
+                <small className="text-muted">{'x ' + cartItem.orderAmount}</small>
+            </div>
+            <span className="text-muted">{'$ ' + cartItem.orderPrice.toFixed(2)}</span>
+        </li>
+    )
+
+    const shoppingCart = () => (
+        <ul className="list-group mb-3">
+            {cart.map(shoppingCartItems)}
+            <li className="list-group-item d-flex justify-content-between">
+                <span>Total</span>
+                <strong>{'$ ' + cartTotal.toFixed(2)}</strong>
+            </li>
+        </ul>
+    )
 
     return (
 
@@ -70,42 +104,10 @@ const CartPage: React.FC = () => {
 
                     <h4 className="d-flex justify-content-between align-items-center mb-3">
                         <span className="text-muted">Your cart</span>
-                        <span className="badge badge-secondary badge-pill">3</span>
+                        <span className="badge badge-secondary badge-pill">{cartStr.length}</span>
                     </h4>
-                    <ul className="list-group mb-3">
-                        <li className="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                                <h6 className="my-0">Product name</h6>
-                                <small className="text-muted">Brief description</small>
-                            </div>
-                            <span className="text-muted">$12</span>
-                        </li>
-                        <li className="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                                <h6 className="my-0">Second product</h6>
-                                <small className="text-muted">Brief description</small>
-                            </div>
-                            <span className="text-muted">$8</span>
-                        </li>
-                        <li className="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                                <h6 className="my-0">Third item</h6>
-                                <small className="text-muted">Brief description</small>
-                            </div>
-                            <span className="text-muted">$5</span>
-                        </li>
-                        <li className="list-group-item d-flex justify-content-between bg-light">
-                            <div className="text-success">
-                                <h6 className="my-0">Promo code</h6>
-                                <small>EXAMPLECODE</small>
-                            </div>
-                            <span className="text-success">-$5</span>
-                        </li>
-                        <li className="list-group-item d-flex justify-content-between">
-                            <span>Total (USD)</span>
-                            <strong>$20</strong>
-                        </li>
-                    </ul>
+
+                    {shoppingCart()}
 
                     <form className="card p-2">
                         <div className="input-group">
@@ -140,14 +142,12 @@ const CartPage: React.FC = () => {
 
                     <div className="p-3 py-5">
                         <div className="d-flex justify-content-between align-items-center experience"><span>Edit Shipping Address</span><span className="border px-3 p-1 add-experience" onClick={() => dispatch(addAddressAction())}><i className="fa fa-plus" ></i>&nbsp;Address</span></div><br />
-                        <div className="btn-group btn-group-toggle" data-toggle="buttons">                 
-                        </div>
-                        {ListAddresses()}       
+                        {ListAddresses()}
                     </div>
 
                     <hr className="my-4" />
 
-                    <button className="btn btn-primary btn-lg btn-block mt-5 text-center" type="submit">Continue to checkout</button>
+                    <button className="btn btn-primary btn-lg btn-block mt-5 text-center" type="submit" onClick={createOrder}>Continue to checkout</button>
                 </div>
 
             </div>

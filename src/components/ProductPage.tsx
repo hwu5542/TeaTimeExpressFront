@@ -5,6 +5,8 @@ import { useAppDispatch, UseAppSelector } from "../store/hook";
 import { useParams } from "react-router-dom";
 import { Products } from "../models/Products";
 import '../css/ProductPage.css';
+import { addToCartAction } from "../slices/OrdersSlice";
+import { Cart } from "../models/Cart";
 
 const ProductPage: React.FC = () => {
     const numberLiteral = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh', 'Eighth', 'Ninth', 'Tenth'];
@@ -120,7 +122,7 @@ const ProductPage: React.FC = () => {
                                             </div>
                                         </div>
 
-                                        <button className="btn btn-primary btn-rounded">
+                                        <button className="btn btn-primary btn-rounded" onClick={()=>{dispatch(addToCartAction(new Cart(product.productName, product.productId, quantity, Math.round(quantity*product.productPrice*100)/100))) }}>
                                             <i className="fas fa-cart-plus mr-2" aria-hidden="true"></i> Add to cart
                                         </button>
                                     </div>
