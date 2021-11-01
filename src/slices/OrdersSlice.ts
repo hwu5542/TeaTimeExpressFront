@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { listOrdersAsync, newOrder, searchOrdersAsync } from "../actions/OrdersActions";
-import { Cart, emptyCart } from "../models/Cart";
-import { emptyOrder, Orders } from "../models/Orders";
+import { createOrdersAsync, listOrdersAsync, searchOrdersAsync } from "../actions/OrdersActions";
+import { Cart } from "../models/Cart";
+import { emptyOrder } from "../models/Orders";
 import { RootState } from "../store/store";
 
 export interface ordersState {
@@ -23,7 +23,6 @@ const ordersSlice = createSlice({
     name:'orders',
     initialState,
     reducers:{
-        newOrderAction:(state) => {state.order = JSON.stringify(newOrder(JSON.parse(state.order)).payload)},
         addToCartAction:(state, action:PayloadAction<Cart>) => {state.cart.push(JSON.stringify(action.payload))},
         checkoutAction:(state) => {},
         // cancelOrderAction:(state) => {state.orders = cancelOrder(state.orders.order_number).payload}
@@ -65,10 +64,35 @@ const ordersSlice = createSlice({
             .addCase(listOrdersAsync.rejected, (state) => {
                 state.status = 'failed'
             })
+
+            .addCase(createOrdersAsync.pending, (state) => {
+                state.status = 'loading'
+            })
+            .addCase(createOrdersAsync.fulfilled, (state, action) => {
+                if (action.payload) {
+                    state.cart = [];
+
+                    let ordersList = new Array(action.payload.length)
+                    let index = 0;
+                    
+                    for (let order of action.payload) {
+                        ordersList[index++] = JSON.stringify(order);
+                    }
+
+                    state.orders = ordersList;
+                } else {
+                    state.orders = initialState.orders;
+                }
+
+                state.status = 'idle';
+            })
+            .addCase(createOrdersAsync.rejected, (state) => {
+                state.status = 'failed'
+            })
     }
 })
 
-export const { newOrderAction, addToCartAction, checkoutAction } = ordersSlice.actions;
+export const { addToCartAction, checkoutAction } = ordersSlice.actions;
 
 export const selectOrders = (state:RootState) => state.orders.orders;
 

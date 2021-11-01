@@ -7,6 +7,8 @@ import { useAppDispatch, UseAppSelector } from "../store/hook";
 import '../css/CartPage.css'
 import { Cart } from "../models/Cart";
 import { selectCart } from "../slices/OrdersSlice";
+import { createOrdersAsync } from "../actions/OrdersActions";
+import { Orders } from "../models/Orders";
 
 const CartPage: React.FC = () => {
     const storeProfile: Users = JSON.parse(UseAppSelector(selectUser));
@@ -37,7 +39,7 @@ const CartPage: React.FC = () => {
 
         userProfile = storeProfile;
 
-        dispatch(updateProfileAsync(userProfile));
+        dispatch(createOrdersAsync(cart));
     }
 
     index = -1;
@@ -148,6 +150,8 @@ const CartPage: React.FC = () => {
                     <hr className="my-4" />
 
                     <button className="btn btn-primary btn-lg btn-block mt-5 text-center" type="submit" onClick={createOrder}>Continue to checkout</button>
+                    
+                    <hr className="my-4" />
                 </div>
 
             </div>

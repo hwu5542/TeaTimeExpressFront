@@ -1,7 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ActionCreator } from "redux";
+import { Cart } from "../models/Cart";
 import { Orders } from "../models/Orders";
-import { ApiListOrders, ApiSearchOrders } from "../remote/SpringApi";
+import { ApiCreateOrders, ApiListOrders, ApiSearchOrders } from "../remote/SpringApi";
 
 export enum OrdersActionTypes {
     NEW_ORDER = 'orders/new',
@@ -28,13 +29,6 @@ export type OrdersActionDelete = {
 
 export type OrdersAction = OrdersActionNew | OrdersActionCancel | OrdersActionDelete;
 
-export const newOrder = (order:Orders) => {
-    return {
-        type:OrdersActionTypes.NEW_ORDER,
-        payload:order    
-    }
-}
-
 export const cancelOrder = (order_number:number) => {
     return {
         type:OrdersActionTypes.CANCEL_ORDER,
@@ -60,7 +54,15 @@ export const searchOrdersAsync = createAsyncThunk(
 export const listOrdersAsync = createAsyncThunk(
     OrdersActionTypes.GET_ORDER_LIST,
     async () => {
-        const order = await ApiListOrders();
-        if (Array.isArray(order)) return order;
+        const orders = await ApiListOrders();
+        if (Array.isArray(orders)) return orders;
+    }
+)
+
+export const createOrdersAsync = createAsyncThunk(
+    OrdersActionTypes.NEW_ORDER,
+    async (cart:Cart[]) => {
+        const orders = await ApiCreateOrders(cart);
+        if (typeof orders === 'object') return orders;
     }
 )
