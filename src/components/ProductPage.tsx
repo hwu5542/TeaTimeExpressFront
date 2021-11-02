@@ -122,7 +122,7 @@ const ProductPage: React.FC = () => {
                                             </div>
                                         </div>
 
-                                        <button className="btn btn-primary btn-rounded" onClick={()=>{dispatch(addToCartAction(new Cart(product.productName, product.productId, quantity, Math.round(quantity*product.productPrice*100)/100))) }}>
+                                        <button className="btn btn-primary btn-rounded" onClick={()=>{dispatch(addToCartAction(new Cart(0, product.productName, product.productId, quantity, Math.round(quantity*product.productPrice*100)/100))) }}>
                                             <i className="fas fa-cart-plus mr-2" aria-hidden="true"></i> Add to cart
                                         </button>
                                     </div>

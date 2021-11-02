@@ -24,19 +24,14 @@ const OrderPage: React.FC = () => {
       dispatch(listOrdersAsync())
     }, [dispatch]);
 
-    // const OrdersTable = () => {
-    //     console.log(ordersList);
-    //     return (<div></div>)
-    // }
-
     const OrdersTable = () => (ordersList.map(OrdersTableItem))
 
     const OrdersTableItem = (order:Orders) => (
         <tr>
-            <td>{order.orderUserId.userFirstName + ' ' + order.orderUserId.userLastName}</td>
+            {/* <td>{order.orderUserId.userFirstName + ' ' + order.orderUserId.userLastName}</td> */}
             <td>{order.orderNumber}</td>
-            <td>{order.productNumber.productName}</td>
-            <td>{order.orderAmount}</td>
+            {/* <td>{order.productNumber.productName}</td> */}
+            {/* <td>{order.orderAmount}</td> */}
             <td>{order.orderDescription}</td>
             <td>{order.orderTime}</td>
             <td>Button</td>
