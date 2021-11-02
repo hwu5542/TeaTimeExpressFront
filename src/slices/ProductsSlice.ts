@@ -6,7 +6,7 @@ import { RootState } from "../store/store"
 
 export interface ProductsState {
     product: string;
-    products: string[];
+    productsList: string[];
     inventory: string;
     status: 'idle' | 'loading' | 'failed';
 }
@@ -14,7 +14,7 @@ export interface ProductsState {
 
 const initialState:ProductsState = {
     product: JSON.stringify(emptyProduct),
-    products: [JSON.stringify(emptyProduct)],
+    productsList: [JSON.stringify(emptyProduct)],
     inventory: JSON.stringify(new Inventory(0, 0)),
     status: 'idle'
 }
@@ -24,7 +24,7 @@ const productsSlice = createSlice({
     initialState,
     reducers:{
         newProductAction: (state) => {state.product = JSON.stringify(newProduct(JSON.parse(state.product)).payload)},
-        setProductAction: (state, action:PayloadAction<number>) => {state.product = setProduct(state.products, action.payload).payload},
+        setProductAction: (state, action:PayloadAction<number>) => {state.product = setProduct(state.productsList, action.payload).payload},
         addInventoryAction: (state) => {state.product = JSON.stringify(JSON.parse(state.product).productStockAmt + addInventory(JSON.parse(state.inventory)).payload.change_amount)},
         setInventoryAction: (state) => {state.product = JSON.stringify(JSON.parse(state.product).productStockAmt + setInventory(JSON.parse(state.inventory)).payload.change_amount)}
     },
@@ -46,16 +46,16 @@ const productsSlice = createSlice({
             })
             .addCase(listProductsAsync.fulfilled, (state, action) => {
                 if (action.payload) {
-                    let productsList = new Array(action.payload.length)
+                    let prodList = new Array(action.payload.length)
                     let index = 0;
                     
                     for (let product of action.payload) {
-                        productsList[index++] = JSON.stringify(product);
+                        prodList[index++] = JSON.stringify(product);
                     }
 
-                    state.products = productsList;
+                    state.productsList = prodList;
                 } else {
-                    state.products = initialState.products;
+                    state.productsList = initialState.productsList;
                 }
 
                 state.status = 'idle';
@@ -68,7 +68,7 @@ const productsSlice = createSlice({
 
 export const { newProductAction, setProductAction, addInventoryAction, setInventoryAction } = productsSlice.actions;
 
-export const selectProducts = (state:RootState) => state.products.products;
+export const selectProducts = (state:RootState) => state.products.productsList;
 
 export const selectProduct = (state:RootState) => state.products.product;
 

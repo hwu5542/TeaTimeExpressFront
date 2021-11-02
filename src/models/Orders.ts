@@ -1,5 +1,4 @@
-import { Cart, emptyCart } from "./Cart";
-import { emptyUser, Users } from "./Users";
+import { Cart } from "./Cart";
 
 export class Orders{
     constructor(
@@ -7,7 +6,7 @@ export class Orders{
         public orderTotal:number,
         public orderDescription:string,
         public orderTime:string,
-        public orderCart:Cart
+        public orderCart:Cart[]
     ) {}
 }
-export const emptyOrder = new Orders(0, 0, '', '', emptyCart); 
+export const emptyOrder = new Orders(0, 0, '', '', []); 

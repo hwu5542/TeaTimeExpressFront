@@ -6,43 +6,44 @@ import { addAddressAction, selectUser, setAddressAction } from "../slices/UserSl
 import { useAppDispatch, UseAppSelector } from "../store/hook";
 import '../css/CartPage.css'
 import { Cart } from "../models/Cart";
-import { selectCart } from "../slices/OrdersSlice";
-import { createOrdersAsync } from "../actions/OrdersActions";
+import { selectNewOrder } from "../slices/OrdersSlice";
 import { Orders } from "../models/Orders";
 
 const CartPage: React.FC = () => {
     const storeProfile: Users = JSON.parse(UseAppSelector(selectUser));
 
-    const cartStr: string[] = UseAppSelector(selectCart);
-
-    let cart: Cart[] = new Array(cartStr.length);
-
-    let index = 0;
-
-    let cartTotal = 0;
-
-    for (let item of cartStr) {
-        cart[index] = JSON.parse(item);
-        cartTotal += cart[index++].orderPrice;
-    }
-
-    let userProfile: Users = storeProfile;
+    const storeOrder = JSON.parse(UseAppSelector(selectNewOrder));
 
     const dispatch = useAppDispatch();
 
+
+    let userProfile: Users = storeProfile;
+
+    let newOrder: Orders = storeOrder;
+
+    let cart: Cart[] = storeOrder.orderCart;
+
     useEffect(
-        () => { userProfile = storeProfile; }
-        , [dispatch, storeProfile])
+        () => {
+            userProfile = storeProfile;
+            newOrder = storeOrder;
+            cart = storeOrder.orderCart;
+        }
+        , [dispatch, storeProfile, cart])
+
 
     const createOrder = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
 
         userProfile = storeProfile;
+        newOrder = storeOrder;
+        cart = storeOrder.orderCart;
+        userProfile.userOrders.push(newOrder);
 
-        dispatch(createOrdersAsync(cart));
+        dispatch(updateProfileAsync(userProfile));
     }
 
-    index = -1;
+    let index = -1;
 
     const address = (addr: Addresses) => (
         (
@@ -93,7 +94,7 @@ const CartPage: React.FC = () => {
             {cart.map(shoppingCartItems)}
             <li className="list-group-item d-flex justify-content-between">
                 <span>Total</span>
-                <strong>{'$ ' + cartTotal.toFixed(2)}</strong>
+                <strong>{'$ ' + newOrder.orderTotal.toFixed(2)}</strong>
             </li>
         </ul>
     )
@@ -106,7 +107,7 @@ const CartPage: React.FC = () => {
 
                     <h4 className="d-flex justify-content-between align-items-center mb-3">
                         <span className="text-muted">Your cart</span>
-                        <span className="badge badge-secondary badge-pill">{cartStr.length}</span>
+                        <span className="badge badge-secondary badge-pill">{cart.length}</span>
                     </h4>
 
                     {shoppingCart()}

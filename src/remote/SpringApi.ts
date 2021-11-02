@@ -72,11 +72,3 @@ export const ApiListOrders = async():Promise<Orders[]|false> => {
 
     return false;
 }
-
-export const ApiCreateOrders = async(cart:Cart[]):Promise<Orders[]|false> => {
-    const response = await SpringClient.post<Orders[]>(OrdersActionTypes.NEW_ORDER, cart);
-
-    if (response.status === 201) return response.data;
-
-    return false;
-}

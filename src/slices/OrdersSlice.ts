@@ -1,21 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { createOrdersAsync, listOrdersAsync, searchOrdersAsync } from "../actions/OrdersActions";
+import { listOrdersAsync, searchOrdersAsync } from "../actions/OrdersActions";
 import { Cart } from "../models/Cart";
-import { emptyOrder } from "../models/Orders";
+import { emptyOrder, Orders } from "../models/Orders";
 import { RootState } from "../store/store";
 
 export interface ordersState {
-    order: string;
+    newOrder: string;
     orders: string[];
-    cart: string[];
     status: 'idle' | 'loading' | 'failed';
 }
 
 
 const initialState:ordersState = {
-    order : JSON.stringify(emptyOrder),
+    newOrder : JSON.stringify(emptyOrder),
     orders : [JSON.stringify(emptyOrder)],
-    cart : [],
     status : 'idle'
 }
 
@@ -23,8 +21,14 @@ const ordersSlice = createSlice({
     name:'orders',
     initialState,
     reducers:{
-        addToCartAction:(state, action:PayloadAction<Cart>) => {state.cart.push(JSON.stringify(action.payload))},
-        checkoutAction:(state) => {},
+        addToCartAction:(state, action:PayloadAction<Cart>) => {
+            let order:Orders = JSON.parse(state.newOrder);
+            order.orderTotal += action.payload.orderPrice;
+            order.orderCart.push(action.payload);
+            state.newOrder = JSON.stringify(order);
+        },
+
+        checkoutAction:(state) => {state.newOrder = JSON.stringify(emptyOrder)},
         // cancelOrderAction:(state) => {state.orders = cancelOrder(state.orders.order_number).payload}
         // deleteOrderAction:(state) => {state.orders = deleteOrder(state.orders)}
     },
@@ -35,7 +39,7 @@ const ordersSlice = createSlice({
                 state.status = 'loading'
             })
             .addCase(searchOrdersAsync.fulfilled, (state, action) => {
-                state.order = JSON.stringify(action.payload) || initialState.order;
+                state.newOrder = JSON.stringify(action.payload) || initialState.newOrder;
                 state.status = 'idle';
             })
             .addCase(searchOrdersAsync.rejected, (state) => {
@@ -64,31 +68,6 @@ const ordersSlice = createSlice({
             .addCase(listOrdersAsync.rejected, (state) => {
                 state.status = 'failed'
             })
-
-            .addCase(createOrdersAsync.pending, (state) => {
-                state.status = 'loading'
-            })
-            .addCase(createOrdersAsync.fulfilled, (state, action) => {
-                if (action.payload) {
-                    state.cart = [];
-
-                    let ordersList = new Array(action.payload.length)
-                    let index = 0;
-                    
-                    for (let order of action.payload) {
-                        ordersList[index++] = JSON.stringify(order);
-                    }
-
-                    state.orders = ordersList;
-                } else {
-                    state.orders = initialState.orders;
-                }
-
-                state.status = 'idle';
-            })
-            .addCase(createOrdersAsync.rejected, (state) => {
-                state.status = 'failed'
-            })
     }
 })
 
@@ -96,6 +75,8 @@ export const { addToCartAction, checkoutAction } = ordersSlice.actions;
 
 export const selectOrders = (state:RootState) => state.orders.orders;
 
-export const selectCart = (state:RootState) => state.orders.cart;
+export const selectNewOrder = (state:RootState) => state.orders.newOrder;
+
+export const selectCart = (state:RootState) => JSON.parse(state.orders.newOrder).orderCart;
 
 export default ordersSlice.reducer;
