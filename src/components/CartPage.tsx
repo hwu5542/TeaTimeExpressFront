@@ -6,8 +6,9 @@ import { addAddressAction, selectUser, setAddressAction } from "../slices/UserSl
 import { useAppDispatch, UseAppSelector } from "../store/hook";
 import '../css/CartPage.css'
 import { Cart } from "../models/Cart";
-import { selectNewOrder } from "../slices/OrdersSlice";
+import { checkoutAction, selectNewOrder } from "../slices/OrdersSlice";
 import { Orders } from "../models/Orders";
+import { toastr } from "react-redux-toastr";
 
 const CartPage: React.FC = () => {
     const storeProfile: Users = JSON.parse(UseAppSelector(selectUser));
@@ -41,6 +42,10 @@ const CartPage: React.FC = () => {
         userProfile.userOrders.push(newOrder);
 
         dispatch(updateProfileAsync(userProfile));
+
+        dispatch(checkoutAction());
+
+        toastr.success('Checkout Success', 'New Order is sent');
     }
 
     let index = -1;

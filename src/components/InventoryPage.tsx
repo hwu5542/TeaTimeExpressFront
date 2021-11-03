@@ -39,7 +39,7 @@ const InventoryPage: React.FC = () => {
             <td>{product.productPrice}</td>
             <td>{product.productOrderAmt}</td>
             <td>{product.productStockAmt}</td>
-            <td>Button</td>
+            <td>Edit</td>
         </tr>
     )
 
@@ -53,7 +53,7 @@ const InventoryPage: React.FC = () => {
                     <th scope="col">Price</th>
                     <th scope="col">Ordered Amount</th>
                     <th scope="col">Stock Amount</th>
-                    <th scope="col">Detail</th>
+                    <th scope="col">Operation</th>
                 </tr>
             </thead>
             <tbody>
