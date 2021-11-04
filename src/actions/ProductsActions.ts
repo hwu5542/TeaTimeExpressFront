@@ -1,15 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { Inventory } from "../models/Inventory"
 import { Products } from "../models/Products"
-import { ApiListProducts } from "../remote/SpringApi"
+import { ApiListProducts, ApiUpdateProducts } from "../remote/SpringApi"
 
 export enum ProductsActionTypes {
     NEW_PRODUCT = 'products/new',
     SET_PRODUCT = 'products/set',
     // GET_PRODUCT = 'products/get',
     GET_PRODUCT_LIST = 'products/getAll',
-    ADD_INVENT = 'products/addinvent',
-    SET_INVENT = 'products/setinvent'
+    UPDATE_PRODUCT = 'products/update'
 }
 
 export const newProduct = (newProduct:Products) => {
@@ -26,20 +24,6 @@ export const setProduct = (allProducts:string[], productId:number) => {
     }
 }
 
-export const addInventory = (inventInc:Inventory) => {
-    return {
-        type:ProductsActionTypes.ADD_INVENT,
-        payload:inventInc
-    }
-}
-
-export const setInventory = (inventSet:Inventory) => {
-    return {
-        type:ProductsActionTypes.SET_INVENT,
-        payload:inventSet
-    }
-}
-
 // export const searchProductsAsync = createAsyncThunk(
 //     ProductsActionTypes.GET_PRODUCT,
 //     async (productId:number) => {
@@ -51,7 +35,15 @@ export const setInventory = (inventSet:Inventory) => {
 export const listProductsAsync = createAsyncThunk(
     ProductsActionTypes.GET_PRODUCT_LIST,
     async () => {
-        const product = await ApiListProducts();
-        if (Array.isArray(product)) return product;
+        const productsList = await ApiListProducts();
+        if (Array.isArray(productsList)) return productsList;
     }
 )
+
+export const updateProductsAsync = createAsyncThunk(
+        ProductsActionTypes.UPDATE_PRODUCT,
+        async (products:Products[]) => {
+            const productsList = await ApiUpdateProducts(products);
+            if (typeof productsList === 'object') return productsList;
+        }
+    )

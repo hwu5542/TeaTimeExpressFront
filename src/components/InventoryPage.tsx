@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react";
-import { listProductsAsync } from "../actions/ProductsActions";
-import { Products } from "../models/Products";
+import { listProductsAsync, updateProductsAsync } from "../actions/ProductsActions";
+import { emptyProduct, Products } from "../models/Products";
 import { selectProducts } from "../slices/ProductsSlice";
 import { useAppDispatch, UseAppSelector } from "../store/hook";
 
@@ -8,7 +8,7 @@ const InventoryPage: React.FC = () => {
 
     // const adminAccount: Users = JSON.parse(UseAppSelector(selectUser));
 
-    const productsListStr: string[] = UseAppSelector(selectProducts);
+    let productsListStr: string[] = UseAppSelector(selectProducts);
 
     let productsList: Products[] = new Array(productsListStr.length);
 
@@ -24,10 +24,13 @@ const InventoryPage: React.FC = () => {
         dispatch(listProductsAsync())
     }, [dispatch]);
 
-    // const ProductsTable = () => {
-    //     console.log(productsList);
-    //     return (<div></div>)
-    // }
+    const commitChanges = () => {
+        dispatch(updateProductsAsync(productsList));
+    }
+
+    const newProduct = () => {
+        productsList.push(emptyProduct);
+    }
 
     const ProductsTable = () => (productsList.map(ProductsTableItem))
 
@@ -35,16 +38,16 @@ const InventoryPage: React.FC = () => {
         <Fragment>
             <tr>
                 <td>{product.productId}</td>
-                <td>{product.productName}</td>
-                <td>{product.productWeight}</td>
-                <td>{product.productPrice}</td>
-                <td>{product.productOrderAmt}</td>
-                <td>{product.productStockAmt}</td>
-                <td>{product.productDescription}</td>
+                <td><input type="text" className="form-control" defaultValue={product.productName} onChange={e=>{product.productName=e.target.value}}/></td>
+                <td><input type="text" className="form-control" defaultValue={product.productWeight} onChange={e=>{product.productWeight = Number.parseInt(e.target.value)}}/></td>
+                <td><input type="text" className="form-control" defaultValue={product.productPrice} onChange={e=>{product.productPrice=Number.parseInt(e.target.value)}}/></td>
+                <td><input type="text" className="form-control" defaultValue={product.productOrderAmt} onChange={e=>{product.productOrderAmt=Number.parseInt(e.target.value)}}/></td>
+                <td><input type="text" className="form-control" defaultValue={product.productStockAmt} onChange={e=>{product.productStockAmt=Number.parseInt(e.target.value)}}/></td>
+                <td><input type="text" className="form-control" defaultValue={product.productDescription} onChange={e=>{product.productDescription=e.target.value}}/></td>
                 <td><button className="btn btn-primary" type="button" data-toggle="collapse" data-target={"#editDetail"+product.productId} aria-expanded="false" aria-controls={"editDetail"+product.productId}>Edit</button></td>
             </tr>
             <tr className="collapse" id={"editDetail"+product.productId}>
-                <td>{product.productListImage}</td>
+                <td><input type="text" className="form-control" defaultValue={product.productListImage} onChange={e=>{product.productListImage=e.target.value}}/></td>
                 {product.productImage.split(';').map((image: any) => (<td>{image}</td>))}
             </tr>
         </Fragment>
@@ -53,6 +56,10 @@ const InventoryPage: React.FC = () => {
     return (
         <table className="table">
             <thead>
+                <tr>
+                    <td><button type="button" className="btn btn-success" onClick={commitChanges}>Commit Changes</button></td>
+                    <td><button type="button" className="btn btn-warning" onClick={newProduct}>New Product</button></td>
+                </tr>
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Name</th>

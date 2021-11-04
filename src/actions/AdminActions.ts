@@ -1,6 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { Inventory } from "../models/Inventory"
-import { Products } from "../models/Products"
 import { UserCredential } from "../models/UserCredential"
 import { ApiListAccounts, ApiListProducts } from "../remote/SpringApi"
 
