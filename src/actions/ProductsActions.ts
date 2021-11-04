@@ -3,18 +3,10 @@ import { Products } from "../models/Products"
 import { ApiListProducts, ApiUpdateProducts } from "../remote/SpringApi"
 
 export enum ProductsActionTypes {
-    NEW_PRODUCT = 'products/new',
     SET_PRODUCT = 'products/set',
     // GET_PRODUCT = 'products/get',
     GET_PRODUCT_LIST = 'products/getAll',
     UPDATE_PRODUCT = 'products/update'
-}
-
-export const newProduct = (newProduct:Products) => {
-    return {
-        type:ProductsActionTypes.NEW_PRODUCT,
-        payload:newProduct
-    }
 }
 
 export const setProduct = (allProducts:string[], productId:number) => {

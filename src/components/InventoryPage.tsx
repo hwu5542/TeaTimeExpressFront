@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { listProductsAsync, updateProductsAsync } from "../actions/ProductsActions";
 import { emptyProduct, Products } from "../models/Products";
-import { selectProducts } from "../slices/ProductsSlice";
+import { selectProducts, updateProductsAction } from "../slices/ProductsSlice";
 import { useAppDispatch, UseAppSelector } from "../store/hook";
 
 const InventoryPage: React.FC = () => {
@@ -30,6 +30,8 @@ const InventoryPage: React.FC = () => {
 
     const newProduct = () => {
         productsList.push(emptyProduct);
+
+        dispatch(updateProductsAction(productsList));
     }
 
     const ProductsTable = () => (productsList.map(ProductsTableItem))

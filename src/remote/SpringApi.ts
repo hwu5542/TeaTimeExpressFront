@@ -49,8 +49,8 @@ export const ApiListAccounts = async(credential:UserCredential):Promise<Users[]|
 //     return false;
 // }
 
-export const ApiUpdateProducts = async(productsList:Products[]):Promise<Products|false> => {
-    const response = await SpringClient.post<Products>(ProductsActionTypes.UPDATE_PRODUCT, productsList);
+export const ApiUpdateProducts = async(productsList:Products[]):Promise<Products[]|false> => {
+    const response = await SpringClient.post<Products[]>(ProductsActionTypes.UPDATE_PRODUCT, productsList);
 
     if (response.status === 200) return response.data;
 
