@@ -1,7 +1,12 @@
 This is the dimension of images used in this app:
 
 On Shopping List:
-288 x 462
+288  x  462
+576  x  924
+864  x  1386
+1152 x  1848
 
 On Product Page:
-576 x 626
+576  x  626
+1152 x  1252
+1728 x  1,878

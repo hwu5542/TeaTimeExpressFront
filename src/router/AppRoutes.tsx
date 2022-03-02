@@ -12,6 +12,8 @@ import SignUp from "../components/SignUp";
 const AppRoutes:React.FC<unknown> = (props) => {
     return(
         <Switch>
+            <Route exact path='/index.html' component = {SignUp}/>
+            
             <Route exact path='/' component = {SignUp}/>
 
             <Route exact path='/shopping' component = {ShoppingPage}/>
